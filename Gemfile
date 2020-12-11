@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -5,8 +6,8 @@ ruby '2.7.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.1.0'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3', '~> 1.4'
+# Use pg as the database for Active Record
+gem 'pg', '~> 1.1'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
 # Use SCSS for stylesheets
@@ -31,15 +32,17 @@ gem 'image_processing', '~> 1.2'
 gem 'bootsnap', '>= 1.4.4', require: false
 
 # Handle authentication
-gem "rodauth-rails", "~> 0.6"
-gem "jwt",      require: false # for JWT feature
-gem "rotp",     require: false # for OTP feature
-gem "rqrcode",  require: false # for OTP feature
-gem "webauthn", require: false # for WebAuthn feature
+gem 'rodauth', '~> 2.6'
+gem 'rodauth-rails', '~> 0.7'
+gem 'jwt',      require: false # for JWT feature
+gem 'rotp',     require: false # for OTP feature
+gem 'rqrcode',  require: false # for OTP feature
+gem 'webauthn', require: false # for WebAuthn feature
+gem 'view_component', require: 'view_component/engine'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'break'
   gem 'spring'
 
@@ -83,4 +86,4 @@ group :test do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

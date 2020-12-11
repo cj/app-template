@@ -1,16 +1,27 @@
 {
   "name": "app-template",
+  "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "5.2.1",
-    "tailwindcss": "^2.0.1",
+    "lodash": "^4.17.20",
+    "ramda": "^0.27.1",
+    "stimulus": "^2.0.0",
+    "tailwindcss": "^2.0.1-compat",
     "turbolinks": "^5.2.0"
   },
-  "version": "0.1.0",
   "devDependencies": {
+    "@ky-is/tailwind-color-palette": "^1.0.0",
+    "@tailwindcss/aspect-ratio": "^0.2.0",
+    "@tailwindcss/forms": "^0.2.1",
+    "@tailwindcss/typography": "^0.3.1",
+    "autoprefixer": "^9",
+    "hex-rgb": "^4.2.0",
+    "postcss": "^7",
+    "tailwindcss-debug-screens": "^2.0.0",
     "webpack-dev-server": "^3.11.0"
   }
 }

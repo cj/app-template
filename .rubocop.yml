@@ -1,0 +1,24 @@
+---
+inherit_from:
+  - https://shopify.github.io/ruby-style-guide/rubocop.yml
+
+AllCops:
+  TargetRubyVersion: 2.6
+  Exclude:
+    - '*/vendor/**/*'
+    - 'node_modules/**/*'
+    - 'db/*'
+    - 'db/fixtures/**/*'
+    - 'tmp/**/*'
+    - 'bin/*'
+    - 'client'
+
+Layout/LineLength:
+  Exclude:
+    - 'db/**/*'
+    - 'bin/**/*'
+    - 'app/lib/rodauth_app.rb'
+
+Lint/MissingSuper:
+  Exclude:
+    - 'app/components/**/*'
