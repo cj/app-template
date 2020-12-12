@@ -1,0 +1,13 @@
+Layout/LineLength:
+  Exclude:
+    - 'db/**/*'
+    - 'bin/**/*'
+    - 'app/lib/rodauth_app.rb'
+
+Lint/MissingSuper:
+  Exclude:
+    - 'app/components/**/*'
+
+Style/StringLiterals:
+  Enabled: true
+  EnforcedStyle: single_quotes

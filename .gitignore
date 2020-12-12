@@ -51,3 +51,5 @@ yarn-debug.log*
 !.ruby-version
 !.tool-versions
 !.rubocop*.yml
+!.ruumba.yml
+!.erb-lint.yml

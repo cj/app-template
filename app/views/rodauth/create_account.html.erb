@@ -6,7 +6,7 @@
   <%= render "submit", value: "Create Account" %>
 <% end %>
 
-<%= render FormComponent.new(rodauth.create_account_path, params: params) do |c| %>
+<%= render Form::Component.new(rodauth.create_account_path, params: params) do |c| %>
   <%= c.email rodauth.login_param, id: 'login' %>
   <%= c.email rodauth.login_confirm_param, id: 'login-confirm' if rodauth.require_login_confirmation? %>
 

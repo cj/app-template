@@ -1,6 +1,11 @@
 ---
 inherit_from:
-  - https://shopify.github.io/ruby-style-guide/rubocop.yml
+  - rubocop/thoughtbot.yml
+  - rubocop/custom.yml
+
+# https://shopify.github.io/ruby-style-guide/
+inherit_gem:
+  rubocop-shopify: rubocop.yml
 
 AllCops:
   TargetRubyVersion: 2.6
@@ -12,13 +17,3 @@ AllCops:
     - 'tmp/**/*'
     - 'bin/*'
     - 'client'
-
-Layout/LineLength:
-  Exclude:
-    - 'db/**/*'
-    - 'bin/**/*'
-    - 'app/lib/rodauth_app.rb'
-
-Lint/MissingSuper:
-  Exclude:
-    - 'app/components/**/*'

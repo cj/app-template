@@ -1,0 +1,8 @@
+---
+AllCops:
+  Include:
+    - '**/*.erb'
+
+inherit_from:
+  - .rubocop.yml
+  - rubocop/erb.yml
