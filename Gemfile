@@ -58,14 +58,17 @@ group :development, :test do
   gem 'spring'
 
   # Code critics
+  gem 'solargraph'
   gem 'reek', '>= 6.0.2', require: false
   gem 'rubocop', '>= 0.72', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-shopify', require: false
+  # waiting for https://github.com/castwide/solargraph-reek/pull/1 to get merged in
+  gem 'solargraph-reek', github: 'cj/solargraph-reek'
+  # waiting for https://github.com/Shopify/erb-lint/issues/197 to get merged in
   gem 'erb_lint', require: false, github: 'cj/erb-lint'
-  gem 'better_html', '~> 1.0.7'
-  gem 'ruumba'
+  gem 'ruumba', require: false
   gem 'scss_lint', '~> 0.50', require: false
   gem 'bundler-audit',
     '~> 0.4',
@@ -93,6 +96,8 @@ group :development do
   gem 'guard-rails', github: 'atd/guard-rails', require: false
   gem 'guard-process', require: false
   gem 'guard-bundler', require: false
+
+  gem 'letter_opener'
 end
 
 group :test do

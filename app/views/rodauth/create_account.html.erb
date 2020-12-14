@@ -1,15 +1,24 @@
-<%= form_tag rodauth.create_account_path, method: :post do %>
-  <%= render "login_field" %>
-  <%= render "login_confirm_field" if rodauth.require_login_confirmation? %>
-  <%= render "password_field" if rodauth.create_account_set_password? %>
-  <%= render "password_confirm_field" if rodauth.create_account_set_password? && rodauth.require_password_confirmation? %>
-  <%= render "submit", value: "Create Account" %>
-<% end %>
+<div class="flex justify-center flex-grow align-center">
+  <%= render FormComponent::Base.new(rodauth.create_account_path, {
+    params: params,
+    field_error_handler: ->(name) { rodauth.field_error(name) },
+    class: 'flex flex-col justify-center',
+  }) do |c| %>
+    <%= c.email(rodauth.login_param, id: 'login', label: { text: 'Email' }) %>
+    <%= c.email(rodauth.login_confirm_param, id: 'login-confirm', label: { text: 'Email Confirmation' }) if rodauth.require_login_confirmation? %>
 
-<%= render Form::Component.new(rodauth.create_account_path, params: params) do |c| %>
-  <%= c.email rodauth.login_param, id: 'login' %>
-  <%= c.email rodauth.login_confirm_param, id: 'login-confirm' if rodauth.require_login_confirmation? %>
+    <% if rodauth.create_account_set_password? %>
+      <%= c.password(rodauth.password_param, {
+        id: "password-field",
+        autocomplete: rodauth.password_field_autocomplete_value,
+        label: { text: 'Password'},
+      }) %>
+    <% end %>
 
-  <%= c.password rodauth.password_param, id: "password-field", autocomplete: rodauth.password_field_autocomplete_value if rodauth.create_account_set_password? %>
-  <%= c.password rodauth.password_confirm_param, id: "password-confirm"  if rodauth.create_account_set_password? && rodauth.require_password_confirmation? %>
-<% end %>
+    <% if rodauth.create_account_set_password? && rodauth.require_password_confirmation? %>
+      <%= c.password(rodauth.password_confirm_param, id: "password-confirm", label: { text: 'Confirm Password' }) %>
+    <% end %>
+
+    <%= c.submit('Create Account') %>
+  <% end %>
+</div>

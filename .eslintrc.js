@@ -15,7 +15,7 @@ module.exports = {
       rules: {
         'no-param-reassign': 'off',
         'global-require': 'off',
-        'import/import/no-extraneous-dependencies': 'off',
+        'import/no-extraneous-dependencies': 'off',
       },
     },
   ],

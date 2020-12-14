@@ -1,11 +1,11 @@
 ---
-inherit_from:
-  - rubocop/thoughtbot.yml
-  - rubocop/custom.yml
-
 # https://shopify.github.io/ruby-style-guide/
 inherit_gem:
   rubocop-shopify: rubocop.yml
+
+inherit_from:
+  - rubocop/thoughtbot.yml
+  - rubocop/custom.yml
 
 AllCops:
   TargetRubyVersion: 2.6

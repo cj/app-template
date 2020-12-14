@@ -33,7 +33,7 @@ const colors = {
 }
 
 const content = ['app/views', 'app/javascript'].map(
-  (purgeFolder) => `./${purgeFolder}/**/*.{${extensions}}`
+  (purgeFolder) => `./${purgeFolder}/**/*.{${extensions}}`,
 )
 
 const isProduction = process.env.NODE_ENV === 'production'
@@ -62,17 +62,17 @@ module.exports = {
         const matches = R.flatten(
           (
             string.match(
-              /[^\s"#%'().<=>[\]`{}]*[^\s"#%'().:<=>[\]`{}](\w+-\${\w+}-\d+|\w+-\w+-\${\w+})/g
+              /[^\s"#%'().<=>[\]`{}]*[^\s"#%'().:<=>[\]`{}](\w+-(\$|#){\w+}-\d+|\w+-\w+-(\$|#){\w+})/g,
             ) || []
           ).map((record) => {
             const colorMatches = []
 
             colorTypes.forEach((color) => {
-              colorMatches.push(record.replace(/\${\w+}/g, color))
+              colorMatches.push(record.replace(/(\$|#){\w+}/g, color))
             })
 
             return colorMatches
-          })
+          }),
         )
 
         return matches.concat(string.match(/[\w/:-]+/g) || [])

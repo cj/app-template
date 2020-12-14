@@ -18,7 +18,7 @@
 # and, you'll have to watch "config/Guardfile" instead of "Guardfile"
 interactor :simple
 
-guard "livereload" do
+guard 'livereload' do
   extensions = {
     css: :css,
     scss: :css,
@@ -54,26 +54,26 @@ guard "livereload" do
   watch %r{config/locales/.+\.yml}
 end
 
-guard :rails, port: 3000, host: "0.0.0.0" do
+guard :rails, port: 3000, host: '0.0.0.0' do
   # watch 'Gemfile.lock'
   watch %r{^(config|lib)/.*}
 end
 
-guard :process, name: "webpacker", command: [
-  "bundle", "exec", "bin/webpack-dev-server"
+guard :process, name: 'webpacker', command: [
+  'bundle', 'exec', 'bin/webpack-dev-server'
 ] do
-  watch "yarn.lock"
-  watch "package.json"
-  watch "babel.config.js"
+  watch 'yarn.lock'
+  watch 'package.json'
+  watch 'babel.config.js'
 end
 
 guard :bundler do
-  require "guard/bundler"
-  require "guard/bundler/verify"
+  require 'guard/bundler'
+  require 'guard/bundler/verify'
   helper = Guard::Bundler::Verify.new
 
-  files = ["Gemfile"]
-  files += Dir["*.gemspec"] if files.any? { |f| helper.uses_gemspec?(f) }
+  files = ['Gemfile']
+  files += Dir['*.gemspec'] if files.any? { |f| helper.uses_gemspec?(f) }
 
   # Assume files are symlinked from somewhere
   files.each { |file| watch(helper.real_path(file)) }

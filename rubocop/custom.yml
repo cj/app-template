@@ -3,6 +3,7 @@ Layout/LineLength:
     - 'db/**/*'
     - 'bin/**/*'
     - 'app/lib/rodauth_app.rb'
+  Max: 120
 
 Lint/MissingSuper:
   Exclude:
@@ -11,3 +12,18 @@ Lint/MissingSuper:
 Style/StringLiterals:
   Enabled: true
   EnforcedStyle: single_quotes
+
+Metrics/BlockLength:
+  CountComments: true # count full line comments?
+  Max: 25
+  Exclude:
+    - 'spec/**/*'
+    - 'config/**/*'
+    - 'app/lib/**/*'
+    - 'Guardfile'
+
+Style/FrozenStringLiteralComment:
+  Description: >-
+    Add the frozen_string_literal comment to the top of files
+    to help transition from Ruby 2.3.0 to Ruby 3.0.
+  Enabled: true
