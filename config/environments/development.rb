@@ -43,12 +43,8 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
-  cache_servers = %w(redis://cache-01:6379/0 redis://cache-02:6379/0)
   config.cache_store = :redis_cache_store, {
-    url: cache_servers,
-    connect_timeout: 30, # Defaults to 20 seconds
-    read_timeout: 0.2, # Defaults to 1 second
-    write_timeout: 0.2, # Defaults to 1 second
+    url: %(redis://localhost:6379/1),
     reconnect_attempts: 1, # Defaults to 0
   }
   config.session_store(:cache_store)
