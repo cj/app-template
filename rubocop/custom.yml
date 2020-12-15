@@ -3,15 +3,12 @@ Layout/LineLength:
     - 'db/**/*'
     - 'bin/**/*'
     - 'app/lib/rodauth_app.rb'
+    - 'config/initializers/stimulus_reflex.rb'
   Max: 120
 
 Lint/MissingSuper:
   Exclude:
     - 'app/components/**/*'
-
-Style/StringLiterals:
-  Enabled: true
-  EnforcedStyle: single_quotes
 
 Metrics/BlockLength:
   CountComments: true # count full line comments?
@@ -21,6 +18,7 @@ Metrics/BlockLength:
     - 'config/**/*'
     - 'app/lib/**/*'
     - 'Guardfile'
+    - 'db/schema.rb'
 
 Style/FrozenStringLiteralComment:
   Description: >-

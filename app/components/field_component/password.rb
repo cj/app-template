@@ -2,7 +2,7 @@
 module FieldComponent
   class Password < Base
     def options
-      { type: 'password', autocomplete: 'new-password' }.merge(super)
+      { type: "password", autocomplete: "new-password" }.merge(super)
     end
   end
 end

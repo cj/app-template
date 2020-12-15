@@ -19,8 +19,8 @@ Rails.application.config.content_security_policy do |policy|
   #   # policy.report_uri "/csp-violation-report-endpoint"
 
   if Rails.env.development?
-    srcs = ['http://localhost:3035', 'ws://localhost:3035', 'ws://localhost:3000', 'ws://localhost:5000',
-            'http://localhost:35729', 'ws://localhost:35729']
+    srcs = ["http://localhost:3035", "ws://localhost:3035", "ws://localhost:3000", "ws://localhost:5000",
+            "http://localhost:35729", "ws://localhost:35729"]
     policy.connect_src(:self, :https, *srcs)
   end
 end

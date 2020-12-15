@@ -9,7 +9,7 @@ module ButtonComponent
         inline-flex items-center
         border border-transparent rounded shadow-sm
         focus:outline-none focus:ring-2 focus:ring-offset-2
-        justify-center
+        justify-center cursor-pointer
       ),
 
       size: {
@@ -31,13 +31,13 @@ module ButtonComponent
         },
         xl: {
           default: %w(text-base leading-7),
-          padding: '%w(px-6 py-3)',
+          padding: "%w(px-6 py-3)",
         },
       },
 
       color: {
         solid: color_hash do |color|
-          if color == 'white'
+          if color == "white"
             return %w(
               text-gray-700 bg-white
               hover:bg-gray-50
@@ -50,35 +50,26 @@ module ButtonComponent
       },
     }.freeze
 
-    OPTIONS = { type: 'button' }.freeze
+    OPTIONS = { type: "button" }.freeze
 
-    def initialize(name, variant: 'solid', size: 'base', color: 'primary', **options)
+    def initialize(name, variant: "solid", size: "base", color: "primary", **opts)
       @name = name
       @variant = variant.to_sym
       @color = color.to_sym
       @size = size.to_sym
-      @options = OPTIONS.merge(options)
-
-      initialize_classes
+      @options = [*OPTIONS, *opts, *{
+        class: Base.merge_classes(
+          base_classes,
+          size_classes[:default],
+          opts[:variant] != "plain" && size_classes[:padding],
+          color_classes,
+          opts[:class],
+        ),
+      }].to_h
     end
 
     def button
       button_tag(name, options)
-    end
-
-    def initialize_classes
-      @options[:class] = Base.merge_classes(
-        base_classes,
-        size_classes[:default],
-        !plain? && size_classes[:padding],
-        color_classes,
-        options[:class],
-        (@options[:class] || '').split(' '),
-      ).join(' ')
-    end
-
-    def plain?
-      @is_plain ||= options[:variant] == 'plain'
     end
 
     def size_classes

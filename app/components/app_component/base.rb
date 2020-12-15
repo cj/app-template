@@ -1,6 +1,7 @@
 # frozen_string_literal: true
+
 module AppComponent
-  class Base < ViewComponent::Base
+  class Base < ViewComponentReflex::Component
     include ViewComponent::SlotableV2
 
     TAILWINDCSS_COLORS = %i(primary gray blue teal green yellow orange red purple indigo white)
@@ -8,10 +9,10 @@ module AppComponent
     def self.merge_classes(current_classes, *additional_classes)
       classess_to_merge = additional_classes.reject(&:nil?).map do |classes|
         if classes.is_a?(String)
-          return classes.split(' ')
+          classes.split(" ")
+        else
+          classes || []
         end
-
-        classes || []
       end
 
       [Array(current_classes), *classess_to_merge].reduce([], :concat).map(&:strip).uniq

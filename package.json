@@ -22,10 +22,12 @@
     "@rails/ujs": "^6.1.0",
     "@rails/webpacker": "5.2.1",
     "autoprefixer": "^9",
+    "cable_ready": "^4.4.5",
     "lodash": "^4.17.20",
     "postcss": "^7",
     "ramda": "^0.27.1",
     "stimulus": "^2.0.0",
+    "stimulus_reflex": "3.4.0-pre9",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat",
     "turbolinks": "^5.2.0"
   },
@@ -77,7 +79,7 @@
       "markdownlint"
     ],
     "**/*.rb": [
-      "bundle exec rubocop --format simple -A -a -c .rubocop.yml",
+      "bundle exec rubocop --format simple -c .rubocop.yml",
       "bundle exec reek -c .reek.yml"
     ],
     "**/*.{css,gql,graphql,html,json,less,md,mdx,scss,vue,yaml,yml}": [

@@ -28,18 +28,16 @@ module FieldComponent
     def initialize(name, value, label: {}, error_handler: nil, **options)
       @name = name
       @value = value
-      @options = options
       @error_handler = error_handler
       @label_options = { has_error: has_error }.merge(label)
-      @label_id = label_options[:id] || options[:id]
-
-      # Used for accessibility
-      @options[:id] = Nanoid.generate unless options.key?(:id)
-
-      @options[:class] = Base.merge_classes(
-        CLASSES[:base],
-        CLASSES[has_error ? :error : :no_error],
-        @options[:class],
+      @options = options.merge(
+        # Used for accessibility
+        id: label_options[:id] || Nanoid.generate,
+        class: Base.merge_classes(
+          CLASSES[:base],
+          CLASSES[has_error ? :error : :no_error],
+          options[:class],
+        ),
       )
     end
 

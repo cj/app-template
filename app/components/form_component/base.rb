@@ -2,29 +2,41 @@
 
 module FormComponent
   # Component for handling forms
-  class Base < ViewComponent::Base
-    include ViewComponent::SlotableV2
+  class Base < AppComponent::Base
+    attr_reader :path, :params, :options, :field_options, :fields, :classes
 
-    attr_reader :path, :params, :options, :field_options, :fields
-
-    def initialize(path, params: {}, field_error_handler: ->(*_args) {}, **options)
+    def initialize(path, params: {}, field_error_handler: nil, **opts)
+      @clicked = false
       @path = path
       @params = params
-      @options = { method: :post }.merge(options)
+      @classes = Base.merge_classes(opts[:class])
+      @options = [*{ method: :post }, *opts, *{
+        class: classes,
+      }].to_h
       @field_options = { error_handler: field_error_handler }
       @fields = []
+      @count = 0
     end
 
     %i[field email password button].each do |method_name|
       define_method method_name do |name, value: params[name], **options|
-        fields.push("FieldComponent::#{method_name.to_s.classify}".constantize.new(
-          name, value, field_options.merge(options)
-        ))
+        fields.push(
+          component: "FieldComponent::#{method_name.to_s.classify}".constantize,
+          arguments: [name, value, field_options.merge(options)],
+        )
       end
     end
 
     def submit(name, **options)
-      fields.push(ButtonComponent::Submit.new(name, options))
+      fields.push(
+        component: ButtonComponent::Submit,
+        arguments: [name, options],
+      )
+    end
+
+    def handle_click
+      @clicked = true
+      @count += 1
     end
   end
 end

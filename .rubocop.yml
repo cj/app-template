@@ -8,12 +8,10 @@ inherit_from:
   - rubocop/custom.yml
 
 AllCops:
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 2.7
   Exclude:
     - '*/vendor/**/*'
     - 'node_modules/**/*'
-    - 'db/*'
-    - 'db/fixtures/**/*'
     - 'tmp/**/*'
     - 'bin/*'
     - 'client'

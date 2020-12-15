@@ -3,7 +3,7 @@
 module ButtonComponent
   class Submit < Base
     def options
-      super.merge({ type: 'submit' })
+      super.merge({ type: "submit" })
     end
 
     def button

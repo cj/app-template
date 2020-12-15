@@ -1,5 +1,22 @@
-<%= form_tag path, options do %>
-  <% fields.each do |field| %>
-    <%= render field %>
+<%= component_controller class: classes do %>
+  <%= form_tag path, options do %>
+    <% fields.each do |component:, arguments:| %>
+      <%= render component.new(*arguments) %>
+    <% end %>
   <% end %>
+
+  <%= render ButtonComponent::Base.new('Click me test', {
+    class: 'mt-10',
+    data: reflex_data_attributes(:handle_click),
+  }) %>
+
+  <%= reflex_tag :handle_click, :button, "Click Me test", class: "button is-primary", type: "button" %>
+
+  <%= @count %>
+
+  <div data-id="testing-clicked">
+    <% if @clicked %>
+      CLICKED!
+    <% end %>
+  </div>
 <% end %>

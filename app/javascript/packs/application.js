@@ -3,13 +3,15 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
+import '../channels'
+import '../controllers'
+import '../components'
+import './tailwind.css'
+
+import * as ActiveStorage from '@rails/activestorage'
+
 import Rails from '@rails/ujs'
 import Turbolinks from 'turbolinks'
-import * as ActiveStorage from '@rails/activestorage'
-import 'channels'
-import 'controllers'
-import 'components'
-import './tailwind.css'
 
 Rails.start()
 Turbolinks.start()

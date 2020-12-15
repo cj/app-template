@@ -21,11 +21,11 @@ class RodauthApp < Rodauth::Rails::App
 
     # Store account status in a text column.
     account_status_column :status
-    account_unverified_status_value 'unverified'
-    account_open_status_value 'verified'
-    account_closed_status_value 'closed'
+    account_unverified_status_value "unverified"
+    account_open_status_value "verified"
+    account_closed_status_value "closed"
 
-    use_database_authentication_functions? true
+    # use_database_authentication_functions? true
 
     # Store password hash in a column instead of a separate table.
     # account_password_hash_column :password_digest
@@ -125,7 +125,7 @@ class RodauthApp < Rodauth::Rails::App
 
     # ==> Redirects
     # Redirect to home page after logout.
-    logout_redirect '/'
+    logout_redirect "/"
 
     # Redirect to wherever login redirects to after account verification.
     verify_account_redirect { login_redirect }
