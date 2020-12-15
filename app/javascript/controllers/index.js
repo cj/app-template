@@ -9,5 +9,5 @@ const context = require.context('.', true, /_controller\.js$/)
 const contextComponents = require.context('../../components', true, /_controller.js$/)
 
 application.load(definitionsFromContext(context).concat(definitionsFromContext(contextComponents)))
-StimulusReflex.initialize(application, { consumer, controller, isolate: true, debug: true })
+StimulusReflex.initialize(application, { consumer, controller, isolate: true })
 StimulusReflex.debug = process.env.RAILS_ENV === 'development'

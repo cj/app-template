@@ -37,6 +37,8 @@ module FormComponent
     def handle_click
       @clicked = true
       @count += 1
+
+      refresh!("#testing-clicked")
     end
   end
 end

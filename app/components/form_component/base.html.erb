@@ -1,4 +1,4 @@
-<%= component_controller class: classes do %>
+<%= component_controller class: classes, id: 'foo-bar' do %>
   <%= form_tag path, options do %>
     <% fields.each do |component:, arguments:| %>
       <%= render component.new(*arguments) %>
@@ -14,7 +14,7 @@
 
   <%= @count %>
 
-  <div data-id="testing-clicked">
+  <div id="testing-clicked">
     <% if @clicked %>
       CLICKED!
     <% end %>
