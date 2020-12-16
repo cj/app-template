@@ -52,7 +52,7 @@ gem "webauthn", require: false # for WebAuthn feature
 gem "view_component", require: "view_component/engine"
 
 gem "stimulus_reflex", "~> 3.4.0.pre9"
-gem "view_component_reflex", "~> 3.0.0", github: "cj/view_component_reflex"
+gem "view_component_reflex", "~> 3.0.1"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

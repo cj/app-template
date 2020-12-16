@@ -10,13 +10,7 @@ module AuthComponent
       @params = params
       @rodauth = rodauth
       @tag = tag
-      @options = options.merge(
-        class: Base.merge_classes(CLASSES, options[:class]),
-      )
-    end
-
-    def handle_email
-      puts "moo"
+      @options = [*options, *{ class: Base.merge_classes(CLASSES, options[:class]) }].to_h
     end
   end
 end

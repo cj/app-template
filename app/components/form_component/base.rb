@@ -10,9 +10,7 @@ module FormComponent
       @path = path
       @params = params
       @classes = Base.merge_classes(opts[:class])
-      @options = [*{ method: :post }, *opts, *{
-        class: classes,
-      }].to_h
+      @options = [*{ method: :post }, *opts, *{ class: classes }].to_h
       @field_options = { error_handler: field_error_handler }
       @fields = []
       @count = 0

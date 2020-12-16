@@ -3,7 +3,7 @@
     params: params,
     class: 'flex flex-col justify-center',
   }) do |c| %>
-  <%= c.email(rodauth.login_param, id: 'login', label: { text: 'Email' }) %>
+    <%= c.email(rodauth.login_param, id: 'login', label: { text: 'Email' }) %>
     <%= c.email(rodauth.login_confirm_param, id: 'login-confirm', label: { text: 'Email Confirmation' }) if rodauth.require_login_confirmation? %>
 
     <% if rodauth.create_account_set_password? %>
