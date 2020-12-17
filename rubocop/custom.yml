@@ -14,11 +14,15 @@ Metrics/BlockLength:
   CountComments: true # count full line comments?
   Max: 25
   Exclude:
-    - 'spec/**/*'
+    - 'test/**/*'
     - 'config/**/*'
     - 'app/lib/**/*'
     - 'Guardfile'
     - 'db/schema.rb'
+
+Style/ClassAndModuleChildren:
+  Exclude:
+    - 'test/**/*'
 
 Style/FrozenStringLiteralComment:
   Description: >-

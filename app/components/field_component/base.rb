@@ -5,7 +5,7 @@ module FieldComponent
     attr_reader :name, :options, :value, :error_handler, :label_options, :label_id, :size, :error_message
 
     CLASSES = {
-      base: %w(form-control shadow-sm),
+      base: %w(form-control),
       error: %w(is-invalid is-server-error),
       no_error: %w(is-valid),
     }.freeze
@@ -16,7 +16,7 @@ module FieldComponent
     # @param error_handler: nil: method that handles errors, returns message
     # @param **options:          {ActionView::Helpers::FormTagHelper#text_field_tag}
     # @return: ViewComponent
-    def initialize(name, value, label: {}, size: nil, error_handler: nil, **opts)
+    def initialize(name, value = nil, label: {}, size: nil, error_handler: nil, **opts)
       @name = name
       @value = value
       @size = size
@@ -25,7 +25,7 @@ module FieldComponent
 
       @options = opts.merge(
         # Used for accessibility
-        id: label_options[:id] || Nanoid.generate,
+        id: label_options[:id] || Base.generate_id,
       )
     end
 
@@ -46,7 +46,9 @@ module FieldComponent
     end
 
     def before_render
-      @error_message = error_handler.constantize&.field_error_handler({ name: name, value: value, context: self })
+      if error_handler
+        @error_message = error_handler.constantize&.field_error_handler({ name: name, value: value, context: self })
+      end
 
       @options = @options.merge(
         class: Base.merge_classes(

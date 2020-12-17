@@ -54,3 +54,5 @@ tags
 !.rubocop*.yml
 !.ruumba.yml
 !.erb-lint.yml
+
+/config/credentials/test.key

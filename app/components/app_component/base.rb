@@ -6,6 +6,10 @@ module AppComponent
 
     TAILWINDCSS_COLORS = %i(primary secondary success danger warning info light dark link)
 
+    def self.generate_id
+      Nanoid.generate
+    end
+
     def self.merge_classes(current_classes, *additional_classes)
       classess_to_merge = additional_classes.reject(&:nil?).map do |classes|
         if classes.is_a?(String)

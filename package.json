@@ -110,6 +110,9 @@
     ],
     "package.json": [
       "yarn format:package-json"
+    ],
+    "test/**/*_test.rb": [
+      "bundle exec rails test"
     ]
   }
 }

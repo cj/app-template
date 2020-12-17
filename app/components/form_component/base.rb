@@ -8,7 +8,6 @@ module FormComponent
     CLASSES = %w()
 
     def initialize(path, params: {}, field_error_handler: nil, **opts)
-      @clicked = false
       @path = path
       @params = params
       @classes = Base.merge_classes(
@@ -24,7 +23,6 @@ module FormComponent
       }].to_h
       @field_options = { error_handler: options[:field_error_handler] }
       @fields = []
-      @count = 0
     end
 
     %i[base email password button].each do |method_name|
@@ -49,13 +47,6 @@ module FormComponent
           content: block&.call,
         )
       end
-    end
-
-    def handle_click
-      @clicked = true
-      @count += 1
-
-      refresh!("#testing-clicked")
     end
   end
 end

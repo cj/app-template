@@ -53,6 +53,7 @@ gem "view_component", require: "view_component/engine"
 
 gem "stimulus_reflex", "~> 3.4.0.pre9"
 gem "view_component_reflex", "~> 3.0.1"
+gem "i18n-js", "~> 3.8"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -94,7 +95,8 @@ group :development do
   gem "faker", require: false
 
   # Handle live reloading
-  gem "guard"
+  gem "guard", github: "guard/guard"
+  gem "guard-minitest", "~> 2.4"
   gem "guard-livereload", "~> 2.5", require: false
   gem "rack-livereload"
   gem "guard-rails", github: "atd/guard-rails", require: false
@@ -105,6 +107,8 @@ group :development do
   gem "binding_of_caller"
 
   gem "letter_opener"
+
+  gem "rb-readline"
 end
 
 group :test do
@@ -118,11 +122,10 @@ group :test do
   gem "webdrivers"
   gem "webmock", github: "bblimke/webmock"
   gem "vcr"
+
+  gem "minitest-reporters", "~> 1.4"
+  gem "minitest-snapshots", "~> 0.3.0"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
-
-gem "slim-rails", "~> 3.2"
-
-gem "i18n-js", "~> 3.8"

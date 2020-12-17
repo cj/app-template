@@ -1,3 +1,7 @@
 # frozen_string_literal: true
-Rack::MiniProfiler.config.position = "bottom-right"
+
+if Rails.env.development?
+  Rack::MiniProfiler.config.position = "bottom-right"
+end
+
 # Rack::MiniProfiler.config.start_hidden = true
