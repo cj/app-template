@@ -39,6 +39,14 @@ module.exports = function babelConfig(api) {
     plugins: [
       'ramda',
       'lodash',
+      [
+        'module-resolver',
+        {
+          alias: {
+            '~': './app/javascript',
+          },
+        },
+      ],
       'babel-plugin-macros',
       '@babel/plugin-syntax-dynamic-import',
       isTestEnv && 'babel-plugin-dynamic-import-node',

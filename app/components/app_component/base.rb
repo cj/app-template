@@ -4,7 +4,7 @@ module AppComponent
   class Base < ViewComponentReflex::Component
     include ViewComponent::SlotableV2
 
-    TAILWINDCSS_COLORS = %i(primary gray blue teal green yellow orange red purple indigo white)
+    TAILWINDCSS_COLORS = %i(primary secondary success danger warning info light dark link)
 
     def self.merge_classes(current_classes, *additional_classes)
       classess_to_merge = additional_classes.reject(&:nil?).map do |classes|
@@ -24,6 +24,17 @@ module AppComponent
           TAILWINDCSS_COLORS.map.each { |color| block.call(color) },
         )
       ]
+    end
+
+    def method_missing(method, *_args, &_block)
+      # We want to ignore the methods if called outside of a view as they are just view component reflex related.
+      unless %i(refresh!).include?(method)
+        super
+      end
+    end
+
+    def respond_to_missing?(*)
+      true
     end
   end
 end

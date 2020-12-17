@@ -4,7 +4,7 @@ module LabelComponent
   class Base < AppComponent::Base
     attr_reader :id, :text, :options, :has_error
 
-    CLASSES = %w(block text-sm font-medium text-gray-700).freeze
+    CLASSES = %w(form-label).freeze
 
     def initialize(id, text: nil, has_error: false, **options)
       @id = id

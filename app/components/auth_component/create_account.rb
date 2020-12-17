@@ -4,7 +4,7 @@ module AuthComponent
   class CreateAccount < Base
     attr_reader :params, :rodauth, :classes, :tag, :options
 
-    CLASSES = %w(flex)
+    CLASSES = %w(d-flex)
 
     def initialize(params, rodauth, tag: "div", **options)
       @params = params

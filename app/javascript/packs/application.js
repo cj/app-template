@@ -6,7 +6,9 @@
 import '../channels'
 import '../controllers'
 import '../components'
-import './tailwind.css'
+import 'popper.js'
+import 'bootstrap'
+import '../stylesheets/application.scss'
 
 import * as ActiveStorage from '@rails/activestorage'
 

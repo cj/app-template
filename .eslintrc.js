@@ -1,8 +1,13 @@
 module.exports = {
   root: true,
   extends: ['airbnb-base', 'prettier'],
+  parser: 'babel-eslint',
   rules: {
     semi: 'off',
+  },
+  globals: {
+    Rails: true,
+    Turbolinks: true,
   },
   env: {
     node: true,
@@ -21,6 +26,10 @@ module.exports = {
   ],
   settings: {
     'import/resolver': {
+      alias: {
+        map: [['~', './app/javascript']],
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', 'js.erb'],
+      },
       node: {
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
       },

@@ -1,11 +1,11 @@
-<div class="mb-3 last:mb-0">
+<div class="mb-3 last:mb-0 form-group">
   <%= render LabelComponent::Base.new(label_id, label_options) %>
 
   <div class="mt-1">
     <%= text_field_tag name, value, options %>
-  </div>
 
-  <% if error_message %>
-    <p class="mt-2 text-sm text-red-600" id="<%= name %>_error_message"><%= error_message %></p>
-  <% end %>
+    <% if error_message %>
+      <div class="invalid-feedback" id="<%= name %>_error_message"><%= error_message %></div>
+    <% end %>
+  </div>
 </div>

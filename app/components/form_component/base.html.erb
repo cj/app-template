@@ -1,21 +1,25 @@
 <%= component_controller class: classes do %>
   <%= form_tag path, options do %>
-    <% fields.each do |component:, arguments:| %>
-      <%= render component.new(*arguments) %>
+    <% fields.each do |component:, arguments:, content: nil| %>
+      <% if content.present? %>
+        <%= render(component.new(*arguments)) { content } %>
+      <% else %>
+        <%= render component.new(*arguments) %>
+      <% end %>
     <% end %>
   <% end %>
 
-  <%= render ButtonComponent::Base.new('Click me test', {
-    class: 'mt-10',
-    # data: reflex_data_attributes(:handle_click),
-    data: { reflex: 'click->FormComponent::Base#handle_click', key: key },
-  }) %>
+  <%# <%= render ButtonComponent::Base.new('Click me test', {                  %>
+  <%#   class: 'mt-10',                                                        %>
+  <%#   # data: reflex_data_attributes(:handle_click),                         %>
+  <%#   data: { reflex: 'click->FormComponent::Base#handle_click', key: key }, %>
+  <%# }) %>
 
-  <div id="testing-clicked">
-    <%= @count %>
+  <%# <div id="testing-clicked">                                               %>
+  <%#   <%= @count %>
 
-    <% if @clicked %>
-      CLICKED!
-    <% end %>
-  </div>
+  <%#   <% if @clicked %>
+  <%#     CLICKED!                                                             %>
+  <%#   <% end %>
+  <%# </div>                                                                   %>
 <% end %>

@@ -1,0 +1,23 @@
+= content_tag tag, options
+
+  = render FormComponent::Base.new(rodauth.create_account_path, { \
+      params: params, \
+      class: 'd-flex flex-column justify-content-center' \
+    }) do |f|
+
+    = f.email rodauth.login_param, id: 'login', label: { text: 'Email' }
+
+    - if rodauth.require_login_confirmation?
+      = f.email rodauth.login_confirm_param, id: 'login-config', label: { text: 'Email Confirmation' }
+
+    - if rodauth.create_account_set_password?
+      = f.password(rodauth.password_param, { \
+        id: "password-field", \
+        autocomplete: rodauth.password_field_autocomplete_value, \
+        label: { text: 'Password'}, \
+      })
+
+    - if rodauth.create_account_set_password? && rodauth.require_password_confirmation?
+      = f.password(rodauth.password_confirm_param, id: "password-confirm", label: { text: 'Confirm Password' })
+
+    = f.submit('Create Account')

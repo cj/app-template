@@ -7,7 +7,7 @@ module ButtonComponent
     end
 
     def button
-      submit_tag(name, options)
+      submit_tag(content, options)
     end
   end
 end
