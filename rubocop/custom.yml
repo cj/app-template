@@ -2,7 +2,6 @@ Layout/LineLength:
   Exclude:
     - 'db/**/*'
     - 'bin/**/*'
-    - 'app/lib/rodauth_app.rb'
     - 'config/initializers/stimulus_reflex.rb'
   Max: 120
 

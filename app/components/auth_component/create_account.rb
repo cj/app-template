@@ -6,9 +6,8 @@ module AuthComponent
 
     CLASSES = %w(d-flex)
 
-    def initialize(params, rodauth, tag: "div", **options)
+    def initialize(params, tag: "div", **options)
       @params = params
-      @rodauth = rodauth
       @tag = tag
       @options = [*options, *{ class: Base.merge_classes(CLASSES, options[:class]) }].to_h
     end

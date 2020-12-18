@@ -1,27 +1,27 @@
 <%= content_tag tag, options do %>
-  <%= render AuthComponent::Form.new(rodauth.create_account_path, {
-    params: params,
-    class: 'd-flex flex-column justify-content-center',
-  }) do |c| %>
-    <%= c.email(rodauth.login_param, id: 'login', required: true, label: { text: 'Email' }) %>
+  <%# <%= render AuthComponent::Form.new(rodauth.create_account_path, {                                                                  %>
+  <%#   params: params,                                                                                                                  %>
+  <%#   class: 'd-flex flex-column justify-content-center',                                                                              %>
+  <%# }) do |c| %>
+  <%#   <%= c.email(rodauth.login_param, id: 'login', required: true, label: { text: 'Email' }) %>
 
-    <% if rodauth.require_login_confirmation? %>
-      <%= c.email(rodauth.login_confirm_param, id: 'login-confirm', required: true, label: { text: 'Email Confirmation' }) %>
-    <% end %>
+  <%#   <% if rodauth.require_login_confirmation? %>
+  <%#     <%= c.email(rodauth.login_confirm_param, id: 'login-confirm', required: true, label: { text: 'Email Confirmation' }) %>
+  <%#   <% end %>
 
-    <% if rodauth.create_account_set_password? %>
-      <%= c.password(rodauth.password_param, {
-        id: "password-field",
-        autocomplete: rodauth.password_field_autocomplete_value,
-        required: true,
-        label: { text: 'Password'},
-      }) %>
-    <% end %>
+  <%#   <% if rodauth.create_account_set_password? %>
+  <%#     <%= c.password(rodauth.password_param, {                                                                                       %>
+  <%#       id: "password-field",                                                                                                        %>
+  <%#       autocomplete: rodauth.password_field_autocomplete_value,                                                                     %>
+  <%#       required: true,                                                                                                              %>
+  <%#       label: { text: 'Password'},                                                                                                  %>
+  <%#     }) %>
+  <%#   <% end %>
 
-    <% if rodauth.create_account_set_password? && rodauth.require_password_confirmation? %>
-      <%= c.password(rodauth.password_confirm_param, id: "password-confirm", required: true, label: { text: 'Confirm Password' }) %>
-    <% end %>
+  <%#   <% if rodauth.create_account_set_password? && rodauth.require_password_confirmation? %>
+  <%#     <%= c.password(rodauth.password_confirm_param, id: "password-confirm", required: true, label: { text: 'Confirm Password' }) %>
+  <%#   <% end %>
 
-    <%= c.submit { 'Create Account' } %>
-  <% end %>
+  <%#   <%= c.submit { 'Create Account' } %>
+  <%# <% end %>
 <% end %>

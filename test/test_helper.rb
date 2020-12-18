@@ -15,7 +15,7 @@ Minitest::Reporters.use!(
     Minitest.backtrace_filter,
 )
 
-ViewComponent::TestCase.class_eval do
+class ViewComponent::TestCase
   def render_inline(*)
     controller.stubs(:request).returns(OpenStruct.new({
       env: {},
@@ -26,7 +26,7 @@ ViewComponent::TestCase.class_eval do
   end
 end
 
-AppComponent::Base.class_eval do
+class AppComponent::Base
   def self.generate_id
     "generate_id"
   end
@@ -34,8 +34,6 @@ end
 
 module ActiveSupport
   class TestCase
-    extend MiniTest::Spec::DSL
-
     # Run tests in parallel with specified workers
     parallelize(workers: :number_of_processors)
 

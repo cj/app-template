@@ -16,7 +16,8 @@
 #  $ ln -s config/Guardfile .
 #
 # and, you'll have to watch "config/Guardfile" instead of "Guardfile"
-interactor :simple
+# interactor :simple
+interactor :off
 
 guard "livereload" do
   extensions = {
@@ -54,13 +55,13 @@ guard "livereload" do
   watch %r{config/locales/.+\.yml}
 end
 
-guard :rails, port: 3000, host: "0.0.0.0" do
-  # watch 'Gemfile.lock'
-  watch %r{^(config|lib)/.*}
-end
+# guard :rails, port: 3000, host: "0.0.0.0" do
+#   # watch 'Gemfile.lock'
+#   watch %r{^(config|lib)/.*}
+# end
 
 guard :process, name: "webpacker", command: [
-  "bundle", "exec", "bin/webpack-dev-server"
+  "doppler", "run", "--", "bundle", "exec", "bin/webpack-dev-server"
 ] do
   watch "yarn.lock"
   watch "package.json"

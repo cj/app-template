@@ -43,8 +43,6 @@ gem "bootsnap", ">= 1.4.4", require: false
 gem "nanoid"
 
 # Handle authentication
-gem "rodauth", "~> 2.6"
-gem "rodauth-rails", "~> 0.7"
 gem "jwt", require: false # for JWT feature
 gem "rotp", require: false # for OTP feature
 gem "rqrcode", require: false # for OTP feature
@@ -54,6 +52,10 @@ gem "view_component", require: "view_component/engine"
 gem "stimulus_reflex", "~> 3.4.0.pre9"
 gem "view_component_reflex", "~> 3.0.1"
 gem "i18n-js", "~> 3.8"
+
+gem "blind_index", "~> 2.2"
+
+gem "lockbox", "~> 0.6.1"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -82,6 +84,8 @@ group :development, :test do
   gem "brakeman", ">= 4.0", require: false
   gem "benchmark-ips", require: false
   gem "bullet"
+
+  gem "dotenv-rails", "~> 2.7", require: "dotenv/rails-now"
 end
 
 group :development do
@@ -107,8 +111,6 @@ group :development do
   gem "binding_of_caller"
 
   gem "letter_opener"
-
-  gem "rb-readline"
 end
 
 group :test do
@@ -123,6 +125,7 @@ group :test do
   gem "webmock", github: "bblimke/webmock"
   gem "vcr"
 
+  gem "minitest-spec-rails", "~> 6.0"
   gem "minitest-reporters", "~> 1.4"
   gem "minitest-snapshots", "~> 0.3.0"
 end
