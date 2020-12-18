@@ -11,15 +11,17 @@
     "format:imports": "import-sort --write '**/*.{js,jsx,ts,tsx}'",
     "format:package-json": "sort-package-json",
     "format:prettier": "prettier --write '**/*.{css,gql,graphql,html,js,jsx,json,less,md,mdx,scss,ts,tsx,vue,yaml,yml}' '.editorconfig' 'LICENSE'",
-    "lint": "run-p lint:*",
+    "lint": "run-p lint:**",
     "lint-watch": "onchange 'src/**/*' --initial --kill --delay 1000  -- npm run lint",
+    "lint:erb:erblint": "bundle exec erblint app/views/**",
+    "lint:erb:ruumba": "bundle exec ruumba -D -e",
     "lint:eslint": "eslint --cache --ext .js,.jsx,.ts,.tsx --fix  --ignore-path=.gitignore --format=pretty ./",
     "lint:markdown": "markdownlint --ignore coverage --ignore dist --ignore examples --ignore node_modules '**/*.md' '.**/**/*.md'",
     "lint:reek": "bundle exec reek -c .reek.yml",
     "lint:rubocop": "bundle exec rubocop --require rubocop-performance --require rubocop-rails --format simple -A -a -c .rubocop.yml",
     "lint:styles": "cross-env NODE_ENV=production stylelint --ignore-path .gitignore '**/*.{scss,css}' --aei",
     "rails-guard": "bundle exec guard",
-    "rails-s": "onchange --initial --kill 'config/**' 'lib/**' -- bin/rails s"
+    "rails-s": "onchange --initial --kill 'config/**' 'lib/**' 'Gemfile.lock' -- bin/rails s"
   },
   "dependencies": {
     "@popperjs/core": "^2.6.0",
@@ -38,14 +40,9 @@
     "ramda": "^0.27.1",
     "stimulus": "^2.0.0",
     "stimulus_reflex": "3.4.0-pre9",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat",
     "turbolinks": "^5.2.0"
   },
   "devDependencies": {
-    "@ky-is/tailwind-color-palette": "^1.0.0",
-    "@tailwindcss/aspect-ratio": "^0.2.0",
-    "@tailwindcss/forms": "^0.2.1",
-    "@tailwindcss/typography": "^0.3.1",
     "babel-eslint": "^10.1.0",
     "babel-plugin-lodash": "^3.3.4",
     "babel-plugin-module-resolver": "^4.1.0",

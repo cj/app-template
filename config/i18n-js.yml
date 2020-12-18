@@ -23,4 +23,4 @@
 #
 translations:
   - file: 'i18n.js'
-    only: ['en', '*.activerecord.errors']
+    only: ['en.activerecord.errors']

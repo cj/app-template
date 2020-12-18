@@ -39,24 +39,6 @@ gem "image_processing", "~> 1.2"
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.4.4", require: false
 
-# Generate short unique id's
-gem "nanoid"
-
-# Handle authentication
-gem "jwt", require: false # for JWT feature
-gem "rotp", require: false # for OTP feature
-gem "rqrcode", require: false # for OTP feature
-gem "webauthn", require: false # for WebAuthn feature
-gem "view_component", require: "view_component/engine"
-
-gem "stimulus_reflex", "~> 3.4.0.pre9"
-gem "view_component_reflex", "~> 3.0.1"
-gem "i18n-js", "~> 3.8"
-
-gem "blind_index", "~> 2.2"
-
-gem "lockbox", "~> 0.6.1"
-
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug", platforms: %i[mri mingw x64_mingw]
@@ -111,6 +93,8 @@ group :development do
   gem "binding_of_caller"
 
   gem "letter_opener"
+
+  gem "annotate", "~> 3.1"
 end
 
 group :test do
@@ -132,3 +116,27 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
+
+# Generate short unique id's
+gem "nanoid"
+# Handle authentication
+gem "jwt", require: false # for JWT feature
+gem "rotp", require: false # for OTP feature
+gem "rqrcode", require: false # for OTP feature
+gem "webauthn", require: false # for WebAuthn feature
+gem "view_component", require: "view_component/engine"
+
+gem "stimulus_reflex", "~> 3.4.0.pre9"
+gem "view_component_reflex", "~> 3.0.1"
+gem "i18n-js", "~> 3.8"
+
+gem "blind_index", "~> 2.2"
+gem "lockbox", "~> 0.6.1"
+
+gem "devise", "~> 4.7"
+gem "devise-i18n", "~> 1.9"
+gem "devise_invitable", "~> 2.0"
+gem "devise_masquerade", github: "excid3/devise_masquerade"
+gem "omniauth", github: "omniauth/omniauth"
+
+gem "strong_migrations"

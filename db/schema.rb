@@ -11,8 +11,45 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_18_031804) do
+ActiveRecord::Schema.define(version: 2020_12_18_220420) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
+
+  create_table "users", force: :cascade do |t|
+    t.string("encrypted_password", default: "", null: false)
+    t.datetime("reset_password_sent_at")
+    t.datetime("remember_created_at")
+    t.integer("sign_in_count", default: 0, null: false)
+    t.datetime("current_sign_in_at")
+    t.datetime("last_sign_in_at")
+    t.datetime("confirmed_at")
+    t.datetime("confirmation_sent_at")
+    t.integer("failed_attempts", default: 0, null: false)
+    t.datetime("locked_at")
+    t.datetime("created_at", precision: 6, null: false)
+    t.datetime("updated_at", precision: 6, null: false)
+    t.text("email_ciphertext")
+    t.text("reset_password_token_ciphertext")
+    t.text("current_sign_in_ip_ciphertext")
+    t.text("last_sign_in_ip_ciphertext")
+    t.text("confirmation_token_ciphertext")
+    t.text("unconfirmed_email_ciphertext")
+    t.text("unlock_token_ciphertext")
+    t.text("name_ciphertext")
+    t.string("email_bidx")
+    t.string("unconfirmed_email_bidx")
+    t.string("name_bidx")
+    t.string("invitation_token_ciphertext")
+    t.datetime("invitation_created_at")
+    t.datetime("invitation_sent_at")
+    t.datetime("invitation_accepted_at")
+    t.integer("invitation_limit")
+    t.string("invited_by_type")
+    t.bigint("invited_by_id")
+    t.integer("invitations_count", default: 0)
+    t.index(["invitation_token_ciphertext"], name: "index_users_on_invitation_token_ciphertext", unique: true)
+    t.index(["invited_by_id"], name: "index_users_on_invited_by_id")
+    t.index(["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by")
+  end
 end

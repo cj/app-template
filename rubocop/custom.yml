@@ -3,6 +3,8 @@ Layout/LineLength:
     - 'db/**/*'
     - 'bin/**/*'
     - 'config/initializers/stimulus_reflex.rb'
+    - 'config/initializers/devise.rb'
+    - 'lib/tasks/auto_annotate_models.rake'
   Max: 120
 
 Lint/MissingSuper:
@@ -18,6 +20,7 @@ Metrics/BlockLength:
     - 'app/lib/**/*'
     - 'Guardfile'
     - 'db/schema.rb'
+    - 'lib/tasks/auto_annotate_models.rake'
 
 Style/ClassAndModuleChildren:
   Exclude:

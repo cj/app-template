@@ -168,7 +168,7 @@ Metrics/BlockLength:
 Metrics/BlockNesting:
   Enabled: false
 
-Metrics/LineLength:
+Layout/LineLength:
   Enabled: false
 
 Rails/OutputSafety:
@@ -203,3 +203,7 @@ Style/SymbolProc:
 
 Style/ZeroLengthPredicate:
   Enabled: false
+
+Style/MethodCallWithArgsParentheses:
+  Exclude:
+    - 'app/views/devise/**/*'
