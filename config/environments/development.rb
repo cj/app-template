@@ -44,7 +44,7 @@ Rails.application.configure do
   end
 
   config.cache_store = :redis_cache_store, {
-    url: %(redis://localhost:6379/1),
+    url: ENV.fetch("REDIS_URL"),
     reconnect_attempts: 1, # Defaults to 0
   }
   config.session_store(:cache_store)
@@ -95,4 +95,5 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :letter_opener
   config.action_mailer.perform_deliveries = true
+  config.action_cable.url = "ws://localhost:3334/cable"
 end

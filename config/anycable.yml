@@ -1,0 +1,14 @@
+---
+test:
+  redis_url: <%= ENV.fetch("REDIS_URL")  %>
+  rpc_host: '[::]:50051'
+  redis_channel: anycable_test
+development:
+  redis_url: <%= ENV.fetch("REDIS_URL")  %>
+  rpc_host: '[::]:50051'
+  redis_channel: anycable_development
+production:
+  redis_url: <%= ENV.fetch("REDIS_URL")  %>
+  access_logs_disabled: false
+  rpc_host: '[::]:50051'
+  redis_channel: anycable_production

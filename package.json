@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "yarn doppler-download && run-p rails-s rails-guard",
+    "dev": "yarn doppler-download && run-p rails:** rails-guard",
     "dev-offline": "run-p rails-start rails-guard",
     "doppler-download": "doppler secrets download --no-file --format env > .env",
     "format:doctoc": "doctoc --maxlevel 3 --notitle ./README.md",
@@ -20,8 +20,11 @@
     "lint:reek": "bundle exec reek -c .reek.yml",
     "lint:rubocop": "bundle exec rubocop --require rubocop-performance --require rubocop-rails --format simple -A -a -c .rubocop.yml",
     "lint:styles": "cross-env NODE_ENV=production stylelint --ignore-path .gitignore '**/*.{scss,css}' --aei",
+    "rails": "run-p rails:**",
     "rails-guard": "bundle exec guard",
-    "rails-s": "onchange --initial --kill 'config/**' 'lib/**' 'Gemfile.lock' -- bin/rails s"
+    "rails:anycable:go": "onchange --initial --kill 'config/**' 'lib/**' 'Gemfile.lock' -- anycable-go --host=localhost --port=3334",
+    "rails:anycable:rails": "onchange --initial --kill 'config/**' 'lib/**' 'Gemfile.lock' -- bundle exec anycable --debug",
+    "rails:s": "onchange --initial --kill 'config/**' 'lib/**' 'Gemfile.lock' -- bin/rails s"
   },
   "dependencies": {
     "@popperjs/core": "^2.6.0",

@@ -140,3 +140,5 @@ gem "devise_masquerade", github: "excid3/devise_masquerade"
 gem "omniauth", github: "omniauth/omniauth"
 
 gem "strong_migrations"
+
+gem "anycable-rails", "~> 1.0"
