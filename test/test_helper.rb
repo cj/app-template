@@ -15,17 +15,6 @@ Minitest::Reporters.use!(
     Minitest.backtrace_filter,
 )
 
-class ViewComponent::TestCase
-  def render_inline(*)
-    controller.stubs(:request).returns(OpenStruct.new({
-      env: {},
-      session: OpenStruct.new,
-    }))
-
-    super
-  end
-end
-
 class AppComponent::Base
   def self.generate_id
     "generate_id"

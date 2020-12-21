@@ -10,7 +10,7 @@ module FormComponent
     ALLOWED_INPUT_TYPES = %i(text email password checkbox)
     ALLOWED_BUTTON_TYPES = %i(button submit)
 
-    def initialize(resource, scope: resource.class.name.downcase, **options)
+    def initialize(resource = nil, scope: resource.class.name.downcase, **options)
       @resource = resource
       @scope = scope
 
@@ -35,7 +35,7 @@ module FormComponent
     end
 
     def render_input(name, type: :text, **options)
-      value = resource[name]
+      value = resource && resource[name]
 
       possible_type = :"#{name.to_s.sub(/_.*/, "")}"
 
@@ -59,18 +59,20 @@ module FormComponent
 
     %i[checkbox].each do |method_name|
       define_method method_name do |name, **options, &block|
-        render_input(name, options.merge(type: method_name.to_sym), &block)
+        render_input(name, options.merge(type: method_name), &block)
       end
     end
 
-    def button(type: :button, **options, &block)
-      unless ALLOWED_BUTTON_TYPES.include?(type)
-        raise Exception.new("#{type} is not in the ALLOWED_BUTTON_TYPES.")
+    %i[button submit].each do |method_name|
+      define_method method_name do |type: method_name, **options, &block|
+        unless ALLOWED_BUTTON_TYPES.include?(type)
+          raise Exception.new("#{type} is not in the ALLOWED_BUTTON_TYPES.")
+        end
+
+        component = "ButtonComponent::#{type.to_s.classify}".constantize
+
+        render(component.new(options.merge({ type: type }), &block))
       end
-
-      component = "ButtonComponent::#{type.to_s.classify}".constantize
-
-      render(component.new(options, &block))
     end
 
     # def before_render

@@ -70,6 +70,8 @@ module FieldComponent
     end
 
     def check_for_errors
+      return unless resource
+
       errors = resource.errors[name.gsub(/\w+\[/, "").gsub(/].*/, "").to_sym]
 
       if errors.any?

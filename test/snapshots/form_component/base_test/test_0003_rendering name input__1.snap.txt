@@ -1,0 +1,12 @@
+<form class="d-flex flex-column" data-controller="form-component--base" action="/" accept-charset="UTF-8" method="post">
+  <div class="mb-3 last:mb-0 form-group">
+  <label class="form-label">Name</label>
+
+
+  <div class="mt-1">
+    <input type="text" name="user[name]" id="user[name]generate_id" class="form-control" aria-invalid="false" data-error-field-name="Name" />
+
+  </div>
+</div>
+
+</form>
