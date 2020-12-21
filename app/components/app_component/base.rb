@@ -6,6 +6,11 @@ module AppComponent
 
     TAILWINDCSS_COLORS = %i(primary secondary success danger warning info light dark link)
 
+    # :reek:UtilityFunction
+    def main_app
+      Rails.application.class.routes.url_helpers
+    end
+
     def self.generate_id
       Nanoid.generate
     end
@@ -39,6 +44,14 @@ module AppComponent
 
     def respond_to_missing?(*)
       true
+    end
+
+    def permit_parameter?(_initial_param, new_param)
+      if new_param.is_a?(ActiveRecord::Base)
+        false
+      else
+        super
+      end
     end
   end
 end

@@ -2,7 +2,7 @@
 
 module FieldComponent
   class Email < Base
-    def options
+    def base_options
       { type: "email", autocomplete: "email" }.merge(super)
     end
   end

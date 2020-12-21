@@ -1,6 +1,7 @@
 module.exports = {
   root: true,
   extends: ['airbnb-base', 'prettier'],
+  // extends: ['airbnb-base'],
   parser: 'babel-eslint',
   rules: {
     semi: 'off',

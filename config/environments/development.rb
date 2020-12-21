@@ -25,7 +25,7 @@ Rails.application.configure do
   # Show full error reports.
   config.consider_all_requests_local = true
 
-  config.middleware.insert_after(ActionDispatch::Static, Rack::LiveReload)
+  config.middleware.insert_before(Rack::Runtime, Rack::LiveReload)
 
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.
@@ -95,5 +95,5 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :letter_opener
   config.action_mailer.perform_deliveries = true
-  config.action_cable.url = "ws://localhost:3334/cable"
+  # config.action_cable.url = "ws://localhost:3334/cable"
 end

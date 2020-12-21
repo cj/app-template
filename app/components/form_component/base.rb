@@ -3,50 +3,69 @@
 module FormComponent
   # Component for handling forms
   class Base < AppComponent::Base
-    attr_reader :path, :params, :options, :field_options, :fields, :classes, :count
+    attr_reader :resource, :scope, :url, :params, :base_options, :field_options, :fields, :classes, :count
 
-    CLASSES = %w()
+    CLASSES = %w(d-flex flex-column)
 
-    def initialize(path, params: {}, field_error_handler: nil, **opts)
-      @path = path
-      @params = params
+    ALLOWED_INPUT_TYPES = %i(text email password)
+    ALLOWED_BUTTON_TYPES = %i(button submit)
+
+    def initialize(resource, scope: resource.class.name.downcase, **options)
+      @resource = resource
+      @scope = scope
+
       @classes = Base.merge_classes(
         CLASSES,
         # params.present? && "was-validated",
-        opts[:class],
+        options[:class],
       )
-      @options = [*{ method: :post }, *opts, *{
+
+      @base_options = [*{ method: :post }, *options, *{
         novalidate: true,
         class: classes,
-        field_error_handler: field_error_handler,
-        data: [*opts[:data], *{ controller: "form-component--base" }].to_h,
+        model: resource,
+        data: [*options[:data], *{ controller: "form-component--base" }].to_h,
       }].to_h
-      @field_options = { error_handler: options[:field_error_handler] }
+
       @fields = []
     end
 
-    %i[base email password button].each do |method_name|
-      component_name = method_name == :base ? "field" : method_name
+    def input(name, type: :text, **options)
+      value = resource[name]
+      possible_type = :"#{name.to_s.sub(/_.*/, "")}"
 
-      define_method component_name do |name = nil, value: params[name], **options, &block|
-        fields.push(
-          component: "FieldComponent::#{method_name.to_s.classify}".constantize,
-          arguments: [name, value, field_options.merge(options)],
-          content: block&.call,
-        )
+      if ALLOWED_INPUT_TYPES.include?(possible_type)
+        type = possible_type
+      elsif !ALLOWED_INPUT_TYPES.include?(type)
+        raise Exception.new("#{type} is not in the ALLOWED_INPUT_TYPES.")
       end
+
+      component = "FieldComponent::#{type.to_s.classify}".constantize
+
+      render(
+        component.new([scope, name], value, {
+          type: type,
+          resource: resource,
+        }.merge(options)),
+      )
     end
 
-    %i[base submit].each do |method_name|
-      component_name = method_name == :base ? "button" : method_name
-
-      define_method component_name do |**options, &block|
-        fields.push(
-          component: "ButtonComponent::#{method_name.to_s.classify}".constantize,
-          arguments: [options],
-          content: block&.call,
-        )
+    def button(type: :button, **options, &block)
+      unless ALLOWED_BUTTON_TYPES.include?(type)
+        raise Exception.new("#{type} is not in the ALLOWED_BUTTON_TYPES.")
       end
+
+      component = "ButtonComponent::#{type.to_s.classify}".constantize
+
+      render(component.new(options, &block))
     end
+
+    # def before_render
+    #   init_key
+    #
+    #   @base_options[:data] = @base_options[:data].merge(key: key)
+    #
+    #   @base_options
+    # end
   end
 end

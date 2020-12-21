@@ -5,7 +5,7 @@ module ApplicationCable
     identified_by :session_id
 
     def connect
-      self.current_user = env["warden"].user
+      self.current_user = env["warden"]&.user
       self.session_id = request.session.id
       reject_unauthorized_connection unless current_user || session_id
     end

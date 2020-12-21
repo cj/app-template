@@ -53,7 +53,7 @@ group :development, :test do
   gem "rubocop-rails", require: false
   gem "rubocop-shopify", require: false
   # waiting for https://github.com/castwide/solargraph-reek/pull/1 to get merged in
-  gem "solargraph-reek", github: "cj/solargraph-reek"
+  gem "solargraph-reek", github: "parruda/solargraph-reek", branch: "patch-1"
   # waiting for https://github.com/Shopify/erb-lint/issues/197 to get merged in
   gem "erb_lint", require: false, github: "cj/erb-lint"
   gem "ruumba", require: false
@@ -126,8 +126,8 @@ gem "rqrcode", require: false # for OTP feature
 gem "webauthn", require: false # for WebAuthn feature
 gem "view_component", require: "view_component/engine"
 
-gem "stimulus_reflex", "~> 3.4.0.pre9"
-gem "view_component_reflex", "~> 3.0.1"
+gem "stimulus_reflex", "~> 3.4.0"
+gem "view_component_reflex"
 gem "i18n-js", "~> 3.8"
 
 gem "blind_index", "~> 2.2"
@@ -142,3 +142,5 @@ gem "omniauth", github: "omniauth/omniauth"
 gem "strong_migrations"
 
 gem "anycable-rails", "~> 1.0"
+
+gem "rails-i18n", "~> 6.0"

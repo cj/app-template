@@ -3,7 +3,7 @@
 module ButtonComponent
   # Button Component
   class Base < AppComponent::Base
-    attr_reader :options, :size, :color, :variant
+    attr_reader :base_options, :text, :size, :color, :variant
 
     CLASSES = {
       base: %w(btn btn-primary shadow-sm),
@@ -15,17 +15,18 @@ module ButtonComponent
 
     OPTIONS = { type: "button" }.freeze
 
-    def initialize(variant: "solid", size: nil, color: "primary", **opts)
+    def initialize(variant: "solid", size: nil, color: "primary", **options, &block)
+      @text = block.call
       @variant = variant.to_sym
       @color = color.to_sym
       @size = size
-      @options = [*OPTIONS, *opts, *{
-        class: Base.merge_classes(base_classes, size_classes, color_classes, opts[:class]),
+      @base_options = [*OPTIONS, *options, *{
+        class: Base.merge_classes(base_classes, size_classes, color_classes, options[:class]),
       }].to_h
     end
 
     def button
-      button_tag(options) { content }
+      button_tag(base_options) { text }
     end
 
     def size_classes

@@ -206,4 +206,5 @@ Style/ZeroLengthPredicate:
 
 Style/MethodCallWithArgsParentheses:
   Exclude:
-    - 'app/views/devise/**/*'
+    - 'app/views/**/*'
+    - 'app/components/**/*.erb'

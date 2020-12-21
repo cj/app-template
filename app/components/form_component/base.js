@@ -2,6 +2,7 @@ import { capitalize, debounce } from 'lodash'
 
 /* eslint-disable class-methods-use-this, no-param-reassign */
 import { Controller } from 'stimulus'
+import StimulusReflex from 'stimulus_reflex'
 import { I18n } from '~/i18n'
 
 const ERROR_CLASS = 'invalid-feedback'
@@ -32,13 +33,31 @@ const ACTIVE_MODEL_ERRORS_TYPE_MAP = {
   typeMismatch: 'invalid',
 }
 
+const waitFor = async (condFunc) =>
+  new Promise((resolve) => {
+    if (condFunc()) {
+      resolve()
+    } else {
+      setTimeout(async () => {
+        await waitFor(condFunc)
+        resolve()
+      }, 100)
+    }
+  })
+
 export default class extends Controller {
   connect() {
     const { form, onKeyPress, onSubmit, onAjaxSuccess, onAjaxComplete, onAjaxError, onFocus } = this
 
+    if (this.validated) {
+      StimulusReflex.register(this)
+    }
+
+    this.removeReflex()
+
     this.firstInvalidField.focus()
 
-    form.dataset.remote = true
+    // form.dataset.remote = true
     form.setAttribute('novalidate', true)
     form.addEventListener('keydown', onKeyPress)
     form.addEventListener('focusout', onFocus)
@@ -88,13 +107,20 @@ export default class extends Controller {
 
   onKeyPress = debounce((event) => this.validateField(event.target, 'press'), 250)
 
-  onSubmit = (event) => {
-    if (this.validateForm() && this.form.method !== 'get') {
-      Turbolinks.controller.history.push(window.location.href)
-    } else {
-      event.preventDefault() // do not perform regular sumbit
-      event.stopPropagation() // do not let regular remote handler see this
+  onSubmit = async (event) => {
+    event.preventDefault() // do not perform regular sumbit
+    event.stopPropagation() // do not let regular remote handler see this
 
+    if (this.validateForm()) {
+      if (!this.isActionCableConnectionOpen) {
+        StimulusReflex.register(this)
+        await waitFor(() => this.isActionCableConnectionOpen())
+      }
+
+      this.validated = true
+
+      this.stimulate(this.reflex.replace('submit->', ''), event.target)
+    } else {
       this.firstInvalidField.focus()
     }
   }
@@ -111,6 +137,22 @@ export default class extends Controller {
     Turbolinks.clearCache()
 
     Turbolinks.visit(request.responseURL)
+  }
+
+  removeReflex = () => {
+    const reflex = this.form.getAttribute('data-reflex')
+
+    if (reflex) {
+      this.reflex = reflex
+    }
+
+    this.form.removeAttribute('data-reflex')
+  }
+
+  afterReflex() {
+    this.removeReflex()
+    // this.validateForm()
+    this.firstInvalidField.focus()
   }
 
   // onAjaxComplete = () => {
@@ -248,9 +290,9 @@ export default class extends Controller {
 
   get firstInvalidField() {
     return (
-      this.formFields.find(
-        (field) => !field.checkValidity() || field.classList.contains(INPUT_ERROR_CLASS),
-      ) || { focus: () => null }
+      this.formFields.find((field) => field.classList.contains(INPUT_ERROR_CLASS)) || {
+        focus: () => null,
+      }
     )
   }
 

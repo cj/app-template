@@ -8,6 +8,7 @@ export default class extends Controller {
 
   afterReflex() {
     const focusElement = this.element.querySelector('[autofocus]')
+
     if (focusElement) {
       focusElement.focus()
 

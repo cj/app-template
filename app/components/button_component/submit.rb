@@ -2,12 +2,12 @@
 
 module ButtonComponent
   class Submit < Base
-    def options
+    def base_options
       super.merge({ type: "submit" })
     end
 
     def button
-      submit_tag(content, options)
+      submit_tag(text, base_options)
     end
   end
 end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module FieldComponent
   class Password < Base
-    def options
+    def base_options
       { type: "password", autocomplete: "new-password" }.merge(super)
     end
   end

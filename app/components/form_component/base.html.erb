@@ -1,11 +1,3 @@
-<%= component_controller class: classes do %>
-  <%= form_tag path, options do %>
-    <% fields.each do |component:, arguments:, content: nil| %>
-      <% if content.present? %>
-        <%= render(component.new(*arguments)) { content } %>
-      <% else %>
-        <%= render component.new(*arguments) %>
-      <% end %>
-    <% end %>
-  <% end %>
+<%= form_with(base_options) do %>
+  <%= content %>
 <% end %>

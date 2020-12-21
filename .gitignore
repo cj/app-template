@@ -54,5 +54,7 @@ tags
 !.rubocop*.yml
 !.ruumba.yml
 !.erb-lint.yml
+!.solargraph.yml
+!.reek.yml
 
 /config/credentials/test.key

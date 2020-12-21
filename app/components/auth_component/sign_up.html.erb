@@ -1,0 +1,14 @@
+<%= component_controller do %>
+  <%= render FormComponent::Base.new(user, options) do |c| %>
+    <%= c.input :name, required: true %>
+    <%= c.input :email, required: true %>
+    <%= c.input :password, required: true %>
+    <%= c.input :password_confirmation, required: true %>
+
+    <div class="d-flex">
+      <%= c.button(type: :submit) { 'Sign Up' } %>
+    </div>
+  <% end %>
+
+  <%= render DeviseComponent::SharedLinks.new(class: 'mt-2') %>
+<% end %>

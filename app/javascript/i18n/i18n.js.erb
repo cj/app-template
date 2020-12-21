@@ -2,4 +2,6 @@ import I18n from "i18n-js"
 
 I18n.translations = <%= I18n::JS.filtered_translations.to_json %>
 
+window.I18n = I18n
+
 export { I18n }

@@ -20,7 +20,7 @@ Rails.application.config.content_security_policy do |policy|
 
   if Rails.env.development?
     srcs = ["http://localhost:3035", "ws://localhost:3035", "ws://localhost:3000", "ws://localhost:5000",
-            "http://localhost:35729", "ws://localhost:35729"]
+            "http://localhost:35729", "ws://localhost:35729", "ws://localhost:3334"]
     policy.connect_src(:self, :https, *srcs)
   end
 end
