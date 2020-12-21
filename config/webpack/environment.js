@@ -14,4 +14,7 @@ sassLoader.use = [
 ]
 
 environment.loaders.prepend('erb', erb)
+
+environment.splitChunks()
+
 module.exports = environment
