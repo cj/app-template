@@ -7,7 +7,7 @@ module FormComponent
 
     CLASSES = %w(d-flex flex-column)
 
-    ALLOWED_INPUT_TYPES = %i(text email password)
+    ALLOWED_INPUT_TYPES = %i(text email password checkbox)
     ALLOWED_BUTTON_TYPES = %i(button submit)
 
     def initialize(resource, scope: resource.class.name.downcase, **options)
@@ -30,9 +30,16 @@ module FormComponent
       @fields = []
     end
 
-    def input(name, type: :text, **options)
+    def input(*args)
+      render_input(*args)
+    end
+
+    def render_input(name, type: :text, **options)
       value = resource[name]
+
       possible_type = :"#{name.to_s.sub(/_.*/, "")}"
+
+      # resource.type_for_attribute(name).type
 
       if ALLOWED_INPUT_TYPES.include?(possible_type)
         type = possible_type
@@ -48,6 +55,12 @@ module FormComponent
           resource: resource,
         }.merge(options)),
       )
+    end
+
+    %i[checkbox].each do |method_name|
+      define_method method_name do |name, **options, &block|
+        render_input(name, options.merge(type: method_name.to_sym), &block)
+      end
     end
 
     def button(type: :button, **options, &block)

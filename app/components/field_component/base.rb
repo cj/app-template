@@ -65,6 +65,10 @@ module FieldComponent
       end
     end
 
+    def field_tag(*args)
+      text_field_tag(*args)
+    end
+
     def check_for_errors
       errors = resource.errors[name.gsub(/\w+\[/, "").gsub(/].*/, "").to_sym]
 

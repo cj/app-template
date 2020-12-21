@@ -3,6 +3,10 @@
     <%= c.input :email, required: true %>
     <%= c.input :password, required: true %>
 
+    <% if devise_mapping.rememberable? %>
+      <%= c.checkbox :remember_me %>
+    <% end %>
+
     <div class="d-flex">
       <%= c.button(type: :submit) { 'Login' } %>
     </div>

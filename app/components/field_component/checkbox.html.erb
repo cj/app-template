@@ -1,0 +1,9 @@
+<div class="mb-3 last:mb-0 form-check">
+  <%= check_box_tag name, value, checked, options %>
+
+  <%= render LabelComponent::Base.new(label_id, label_options) %>
+
+  <% if error_message %>
+    <div class="invalid-feedback" id="<%= name %>_error_message"><%= error_message %></div>
+  <% end %>
+</div>

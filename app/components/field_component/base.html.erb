@@ -2,7 +2,7 @@
   <%= render LabelComponent::Base.new(label_id, label_options) %>
 
   <div class="mt-1">
-    <%= text_field_tag name, value, options %>
+    <%= field_tag name, value, options %>
 
     <% if error_message %>
       <div class="invalid-feedback" id="<%= name %>_error_message"><%= error_message %></div>
