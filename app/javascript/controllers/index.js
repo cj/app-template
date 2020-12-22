@@ -1,3 +1,4 @@
+// https://github.com/danieldiekmeier/stimulus-controller-resolver
 import { Application } from 'stimulus'
 import StimulusReflex from 'stimulus_reflex'
 // import { definitionsFromContext } from 'stimulus/webpack-helpers'
@@ -6,6 +7,8 @@ import controller from './application_controller'
 
 const application = Application.start()
 const context = require.context('.', true, /_controller\.js$/)
+// This makes it load with dynamic import()
+// const contextComponents = require.context('../../components', true, /.js$/, 'lazy')
 const contextComponents = require.context('../../components', true, /.js$/)
 
 function identifierForContextKey(key) {
@@ -45,5 +48,7 @@ function definitionsFromContext(ctx) {
 }
 
 application.load(definitionsFromContext(context).concat(definitionsFromContext(contextComponents)))
+
 StimulusReflex.initialize(application, { consumer, controller, isolate: true })
+
 StimulusReflex.debug = process.env.RAILS_ENV === 'development'

@@ -5,7 +5,7 @@
 
 import '../channels'
 import '../controllers'
-import '../components'
+// import '../components'
 import 'popper.js'
 import 'bootstrap'
 import '../stylesheets/application.scss'

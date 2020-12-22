@@ -3,7 +3,6 @@ import { capitalize, debounce } from 'lodash'
 /* eslint-disable class-methods-use-this, no-param-reassign */
 import { Controller } from 'stimulus'
 import StimulusReflex from 'stimulus_reflex'
-import { I18n } from '~/i18n'
 
 const ERROR_CLASS = 'invalid-feedback'
 const ERROR_TAG = 'div'
@@ -225,7 +224,7 @@ export default class extends Controller {
     }
   }
 
-  showErrorForInvalidField(field, fieldContainer) {
+  async showErrorForInvalidField(field, fieldContainer) {
     if (!fieldContainer) {
       return
     }
@@ -233,14 +232,14 @@ export default class extends Controller {
     const existingErrorMessageElement = fieldContainer.querySelector(`.${ERROR_CLASS}`)
 
     if (!existingErrorMessageElement) {
-      field.insertAdjacentHTML('afterend', this.buildFieldErrorHtml(field))
+      field.insertAdjacentHTML('afterend', await this.buildFieldErrorHtml(field))
     }
   }
 
-  setLabelError(label, field) {
+  async setLabelError(label, field) {
     const dataLabelHTML = label.dataset.labelHTML
     const labelHTML = dataLabelHTML || label.innerHTML
-    const errorMessage = this.getFieldErrorMessage(field)
+    const errorMessage = await this.getFieldErrorMessage(field)
 
     if (!dataLabelHTML) label.dataset.labelHTML = dataLabelHTML
 
@@ -248,12 +247,12 @@ export default class extends Controller {
     label.classList.add('text-danger')
   }
 
-  buildFieldErrorHtml(field) {
-    const errorMessage = this.getFieldErrorMessage(field)
+  async buildFieldErrorHtml(field) {
+    const errorMessage = await this.getFieldErrorMessage(field)
     return `<${ERROR_TAG} class="${ERROR_CLASS}">${errorMessage}</${ERROR_TAG}>`
   }
 
-  getFieldErrorMessage(field) {
+  async getFieldErrorMessage(field) {
     const { validity, validationMessage, name } = field
     const htmlErrorType = VALIDITY_TYPES.find((type) => validity[type])
     const messageKey = ACTIVE_MODEL_ERRORS_TYPE_MAP[htmlErrorType]
@@ -275,13 +274,19 @@ export default class extends Controller {
       field.setAttribute(INPUT_ERROR_FIELD_NAME, errorField)
     }
 
-    const i18nMessage = I18n.t(`errors.messages.${messageKey}`, {
+    const i18nMessage = (await this.I18n()).t(`errors.messages.${messageKey}`, {
       defaultValue: validationMessage,
     })
 
     const errorMessage = `${errorField} ${i18nMessage}`
 
     return errorMessage
+  }
+
+  async I18n() {
+    const { I18n } = await import('~/i18n')
+
+    return I18n
   }
 
   get formFields() {

@@ -22,15 +22,16 @@ module FieldComponent
       @value = value
       @size = size
       @error_handler = error_handler
+      @options = opts.merge(
+        # Used for accessibility
+        id: opts[:id] || @name + Base.generate_id,
+      )
+
       @label_options = {
+        id: @options[:id],
         has_error: has_error,
         text: Base.get_label_text(name),
       }.merge(label)
-
-      @options = opts.merge(
-        # Used for accessibility
-        id: label_options[:id] || @name + Base.generate_id,
-      )
     end
 
     def base_classes

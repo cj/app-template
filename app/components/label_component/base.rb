@@ -6,10 +6,10 @@ module LabelComponent
 
     CLASSES = %w(form-label).freeze
 
-    def initialize(id, text: nil, has_error: false, **options)
+    def initialize(id: nil, text: nil, has_error: false, **options)
       @id = id
       @text = text
-      @options = options
+      @options = { for: id }.merge(options)
       @has_error = has_error
 
       @options[:class] = Base.merge_classes(

@@ -1,6 +1,6 @@
 <form class="d-flex flex-column" data-controller="form-component--base" action="/" accept-charset="UTF-8" method="post">
   <div class="mb-3 last:mb-0 form-group">
-  <label class="form-label">Name</label>
+  <label for="user[name]generate_id" class="form-label">Name</label>
 
 
   <div class="mt-1">
