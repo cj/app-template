@@ -12,11 +12,13 @@ import '../stylesheets/application.scss'
 
 import * as ActiveStorage from '@rails/activestorage'
 
-import Rails from '@rails/ujs'
-import Turbolinks from 'turbolinks'
+import { Turbo } from '@hotwired/turbo-rails'
+// import Rails from '@rails/ujs'
+// import Turbolinks from 'turbolinks'
 import debounced from 'debounced'
 
-Rails.start()
-Turbolinks.start()
+// Rails.start()
+// Turbolinks.start()
 ActiveStorage.start()
 debounced.initialize()
+Turbo.start()

@@ -139,8 +139,10 @@ gem "devise_invitable", "~> 2.0"
 gem "devise_masquerade", github: "excid3/devise_masquerade"
 gem "omniauth", github: "omniauth/omniauth"
 
-gem "strong_migrations"
+# gem "strong_migrations"
 
 gem "anycable-rails", "~> 1.0"
 
 gem "rails-i18n", "~> 6.0"
+
+gem "turbo-rails", "~> 0.5.0"

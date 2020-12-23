@@ -20,11 +20,19 @@ module FormComponent
         options[:class],
       )
 
+      data = [
+        *options[:data],
+        *{
+          controller: "form-component--base",
+          action: "turbo:submit-end->form-component--base#turboSubmit",
+        },
+      ]
+
       @base_options = [*{ method: :post }, *options, *{
         novalidate: true,
         class: classes,
         model: resource,
-        data: [*options[:data], *{ controller: "form-component--base" }].to_h,
+        data: data.to_h,
       }].to_h
 
       @fields = []
@@ -34,9 +42,7 @@ module FormComponent
       render_input(*args)
     end
 
-    def render_input(name, type: :text, **options)
-      value = resource && resource[name]
-
+    def render_input(name, value: (resource && resource[name]), type: :text, **options)
       possible_type = :"#{name.to_s.sub(/_.*/, "")}"
 
       # resource.type_for_attribute(name).type
@@ -73,6 +79,10 @@ module FormComponent
 
         render(component.new(options.merge({ type: type }), &block))
       end
+    end
+
+    def before_render
+      @base_options[:url] ||= request.fullpath
     end
 
     # def before_render

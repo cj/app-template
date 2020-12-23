@@ -2,33 +2,43 @@
 
 module AuthComponent
   class LogIn < Base
-    attr_reader :user
+    include Devise::Controllers::Helpers
 
-    def initialize(resource: User.new, **options)
-      @user = resource
+    attr_reader :email, :options
+
+    def initialize(**options)
+      @email = nil
       @options = options
     end
 
     def submit
-      @user.assign_attributes(user_params)
-
-      @user.valid?
+      validate
     end
 
     def user_params
-      params.require(:user).permit(:email, :password, :remember_me)
+      return unless params[:user]
+
+      params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
 
-    def options
-      {
-        url: session_path(resource_name),
-        action: "post",
-        data: {
-          controller: "form-component--base",
-          reflex: "submit->AuthComponent::SignUp#submit",
-          key: key,
-        },
-      }.deep_merge(@options)
+    def validate
+      @email = user_params[:email]
+
+      user = User.find_for_authentication(email: email)
+
+      if user&.valid_password?(user_params[:password])
+        sign_in(:user, user)
+
+        controller.redirect_to(secure_path)
+      else
+        flash[:error] = t("devise.failure.invalid", authentication_keys: Devise.authentication_keys.join(" "))
+      end
+    end
+
+    def before_render
+      return unless user_params
+
+      validate
     end
   end
 end

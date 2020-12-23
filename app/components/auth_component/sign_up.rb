@@ -2,7 +2,7 @@
 
 module AuthComponent
   class SignUp < Base
-    attr_reader :user
+    attr_reader :user, :options
 
     def initialize(resource: User.new, **options)
       @user = resource
@@ -16,19 +16,20 @@ module AuthComponent
     end
 
     def user_params
+      return unless params[:user]
+
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
 
-    def options
-      @options.merge({
-        url: new_session_path(resource_name),
-        action: "post",
-        data: {
-          controller: "form-component--base",
-          reflex: "submit->AuthComponent::SignUp#submit",
-          key: key,
-        },
-      })
+    def before_render
+      return unless user_params
+
+      @user.assign_attributes(user_params)
+
+      if @user.valid?
+        @user.save
+        sign_in(@user)
+      end
     end
   end
 end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module AppComponent
-  class Base < ViewComponentReflex::Component
+  class Base < ViewComponent::Base
     include ViewComponent::SlotableV2
 
     TAILWINDCSS_COLORS = %i(primary secondary success danger warning info light dark link)

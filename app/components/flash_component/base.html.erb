@@ -1,0 +1,10 @@
+<% flash.each do |message_type, message| %>
+  <div data-controller="flash-component--base" class="alert alert-<%= alert_class(message_type) %> alert-dismissible fade show" role="alert">
+    <%= message %>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      data-action="click->flash-component--base#close"></button>
+  </div>
+<% end %>

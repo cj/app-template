@@ -2,6 +2,7 @@
 
 module DeviseComponent
   class Base < AppComponent::Base
+    include Devise::Controllers::Helpers
     # def self.field_error_handler(name:, context:, **)
     #   context.helpers.rodauth.field_error(name)
     # end
@@ -15,7 +16,7 @@ module DeviseComponent
 
     # :reek:UtilityFunction
     def devise_mapping
-      Devise.mappings[:user]
+      Devise::Mapping.new(:user, {})
     end
   end
 end

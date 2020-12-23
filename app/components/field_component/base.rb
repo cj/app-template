@@ -2,7 +2,7 @@
 
 module FieldComponent
   class Base < AppComponent::Base
-    attr_reader :name, :options, :resource, :value, :error_handler, :label_options, :label_id, :size, :error_message
+    attr_reader :name, :value, :options, :resource, :error_handler, :label_options, :label_id, :size, :error_message
 
     CLASSES = {
       base: %w(form-control),
@@ -43,7 +43,7 @@ module FieldComponent
     end
 
     def error_classes
-      @error_classes ||= CLASSES[error_message ? :error : (value && :no_error)]
+      @error_classes ||= CLASSES[error_message ? :error : (value.present? && :no_error)]
     end
 
     def has_error

@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 class TestController < ApplicationController
-  before_action :authenticate, except: [:foo]
+  skip_before_action :authenticate_user!, only: [:foo]
 
   def foo
     render
   end
 
   def secure
-    render(plain: "logged in as #{current_account.email}")
+    render(plain: "logged in as #{current_user.name}")
   end
 end

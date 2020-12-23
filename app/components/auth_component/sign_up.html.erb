@@ -1,4 +1,4 @@
-<%= component_controller do %>
+<turbo-frame id="sign_up">
   <%= render FormComponent::Base.new(user, options) do |c| %>
     <%= c.input :name, required: true %>
     <%= c.input :email, required: true %>
@@ -9,6 +9,6 @@
       <%= c.submit { 'Sign Up' } %>
     </div>
   <% end %>
+</turbo-frame>
 
-  <%= render DeviseComponent::SharedLinks.new(class: 'mt-2') %>
-<% end %>
+<%= render DeviseComponent::SharedLinks.new(class: 'mt-2') %>

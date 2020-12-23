@@ -8,15 +8,21 @@ class AddCiphertextToUsers < ActiveRecord::Migration[6.1]
       # encrypted data
       add_column(:users, :"#{field}_ciphertext", :text)
 
+      # encrypted data
+      add_column(:users, :"#{field}_bidx", :string)
+
+      if %i(current_sign_in_ip last_sign_in_ip).include?(field)
+        add_index(:users, :"#{field}_bidx")
+      else
+        add_index(:users, :"#{field}_bidx", unique: true)
+      end
+
       # drop original here unless we have existing users
       remove_column(:users, field)
     end
 
+    add_column(:users, :name_bidx, :text)
     add_column(:users, :name_ciphertext, :text)
-
-    %i(email unconfirmed_email name).each do |field|
-      # encrypted data
-      add_column(:users, :"#{field}_bidx", :string)
-    end
+    add_index(:users, :name_bidx)
   end
 end

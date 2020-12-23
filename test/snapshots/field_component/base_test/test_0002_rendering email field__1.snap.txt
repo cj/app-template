@@ -1,4 +1,4 @@
-<div class="mb-3 last:mb-0 form-group">
+<div class="form-group mb-2 ">
   <label for="testgenerate_id" class="form-label">test</label>
 
 

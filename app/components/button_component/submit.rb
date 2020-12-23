@@ -3,11 +3,7 @@
 module ButtonComponent
   class Submit < Base
     def base_options
-      super.merge({ type: "submit" })
-    end
-
-    def button
-      submit_tag(text, base_options)
+      super.deep_merge({ type: "submit", data: { 'turbo-permanent': true } })
     end
   end
 end

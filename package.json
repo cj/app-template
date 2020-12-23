@@ -28,6 +28,7 @@
     "rails:webpack": "onchange --initial --kill 'yarn.lock' 'babel.config.js' -- bin/webpack-dev-server"
   },
   "dependencies": {
+    "@hotwired/turbo-rails": "^7.0.0-beta.1",
     "@popperjs/core": "^2.6.0",
     "@rails/actioncable": "^6.1.0",
     "@rails/activestorage": "^6.1.0",

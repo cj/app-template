@@ -1,0 +1,26 @@
+diff --git a/node_modules/@hotwired/turbo/dist/turbo.es2017-esm.js b/node_modules/@hotwired/turbo/dist/turbo.es2017-esm.js
+index f1084d2..b4fdb41 100644
+--- a/node_modules/@hotwired/turbo/dist/turbo.es2017-esm.js
++++ b/node_modules/@hotwired/turbo/dist/turbo.es2017-esm.js
+@@ -397,15 +397,15 @@ class FormSubmission {
+         this.result = { success: response.succeeded, fetchResponse: response };
+     }
+     requestSucceededWithResponse(request, response) {
+-        if (this.requestMustRedirect(request) && !response.redirected) {
+-            const error = new Error("Form responses must redirect to another location");
+-            this.delegate.formSubmissionErrored(this, error);
+-        }
+-        else {
++        // if (this.requestMustRedirect(request) && !response.redirected) {
++        //     const error = new Error("Form responses must redirect to another location");
++        //     this.delegate.formSubmissionErrored(this, error);
++        // }
++        // else {
+             this.state = FormSubmissionState.receiving;
+             this.result = { success: true, fetchResponse: response };
+             this.delegate.formSubmissionSucceededWithResponse(this, response);
+-        }
++        // }
+     }
+     requestFailedWithResponse(request, response) {
+         this.result = { success: false, fetchResponse: response };

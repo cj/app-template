@@ -2,7 +2,9 @@ import { capitalize, debounce } from 'lodash'
 
 /* eslint-disable class-methods-use-this, no-param-reassign */
 import { Controller } from 'stimulus'
-import StimulusReflex from 'stimulus_reflex'
+import { Turbo } from '@hotwired/turbo-rails'
+
+// import StimulusReflex from 'stimulus_reflex'
 
 const ERROR_CLASS = 'invalid-feedback'
 const ERROR_TAG = 'div'
@@ -38,6 +40,7 @@ const waitFor = async (condFunc) =>
       resolve()
     } else {
       setTimeout(async () => {
+        // eslint-disable-next-line no-unused-vars
         await waitFor(condFunc)
         resolve()
       }, 100)
@@ -46,13 +49,7 @@ const waitFor = async (condFunc) =>
 
 export default class extends Controller {
   connect() {
-    const { form, onKeyPress, onSubmit, onAjaxSuccess, onAjaxComplete, onAjaxError, onFocus } = this
-
-    if (this.validated) {
-      StimulusReflex.register(this)
-    }
-
-    this.removeReflex()
+    const { form, onKeyPress, onSubmit, onFocus } = this
 
     this.firstInvalidField.focus()
 
@@ -61,43 +58,14 @@ export default class extends Controller {
     form.addEventListener('keydown', onKeyPress)
     form.addEventListener('focusout', onFocus)
     form.addEventListener('submit', onSubmit)
-    form.addEventListener('ajax:success', onAjaxSuccess)
-    form.addEventListener('ajax:complete', onAjaxComplete)
-    form.addEventListener('ajax:error', onAjaxError)
   }
 
   disconnect() {
-    const { form, onKeyPress, onSubmit, onAjaxSuccess, onAjaxComplete, onAjaxError, onFocus } = this
+    const { form, onKeyPress, onSubmit, onFocus } = this
 
     form.removeEventListener('keydown', onKeyPress)
     form.removeEventListener('focusout', onFocus)
     form.removeEventListener('submit', onSubmit)
-    form.removeEventListener('ajax:success', onAjaxSuccess)
-    form.removeEventListener('ajax:complete', onAjaxComplete)
-    form.removeEventListener('ajax:error', onAjaxError)
-  }
-
-  onAjaxError = (event) => {
-    const [, , request] = event.detail
-
-    const { response } = request
-
-    if (response.substring(0, 10) === 'Turbolinks') {
-      return
-    }
-
-    Turbolinks.clearCache()
-
-    try {
-      // eslint-disable-next-line prefer-destructuring
-      document.body.innerHTML = response.match(/<body[^>]*>([\s\S]*?)<\/body>/i)[1]
-
-      Turbolinks.dispatch('turbolinks:load')
-
-      window.scroll(0, 0)
-    } catch {
-      //
-    }
   }
 
   onFocus = (event) => {
@@ -107,61 +75,57 @@ export default class extends Controller {
   onKeyPress = debounce((event) => this.validateField(event.target, 'press'), 250)
 
   onSubmit = async (event) => {
-    event.preventDefault() // do not perform regular sumbit
-    event.stopPropagation() // do not let regular remote handler see this
+    this.disabledSubmit()
 
-    if (this.validateForm()) {
-      if (!this.isActionCableConnectionOpen) {
-        StimulusReflex.register(this)
-        await waitFor(() => this.isActionCableConnectionOpen())
-      }
+    if (!this.validateForm()) {
+      event.preventDefault() // do not perform regular sumbit
+      event.stopPropagation() // do not let regular remote handler see this
 
-      this.validated = true
-
-      this.stimulate(this.reflex.replace('submit->', ''), event.target)
-    } else {
       this.firstInvalidField.focus()
+
+      this.enableSubmit()
     }
   }
 
-  onAjaxSuccess = (event) => {
-    const [, , request] = event.detail
-
-    this.completed = true
-
-    this.resetting = true
-    this.form.reset()
-    this.resetting = false
-
-    Turbolinks.clearCache()
-
-    Turbolinks.visit(request.responseURL)
+  enableSubmit() {
+    this.form.querySelectorAll('button[type="submit"]').forEach((element) => {
+      element.disabled = false
+      element.removeChild(element.firstChild)
+    })
   }
 
-  removeReflex = () => {
-    const reflex = this.form.getAttribute('data-reflex')
+  disabledSubmit() {
+    this.form.querySelectorAll('button[type="submit"]').forEach((element) => {
+      element.disabled = true
+      element.insertBefore(this.createSpinner(), element.firstChild)
+    })
+  }
 
-    if (reflex) {
-      this.reflex = reflex
+  createSpinner() {
+    const spinner = document.createElement('span')
+
+    spinner.className = 'spinner-border spinner-border-sm me-2'
+    spinner.role = 'status'
+    spinner['aria-hidden'] = true
+
+    return spinner
+  }
+
+  async turboSubmit(event) {
+    const {
+      success,
+      fetchResponse: { response: { redirected, url } } = { response: {} },
+    } = event.detail
+
+    if (success && redirected) {
+      Turbo.clearCache()
+      Turbo.visit(url)
+    } else {
+      this.enableSubmit()
     }
-
-    this.form.removeAttribute('data-reflex')
   }
-
-  afterReflex() {
-    this.removeReflex()
-    // this.validateForm()
-    this.firstInvalidField.focus()
-  }
-
-  // onAjaxComplete = () => {
-  //   // If the form was submitted via ajax we want to focus on the first error returned.
-  //   this.firstInvalidField.focus()
-  // }
 
   validateForm() {
-    if (this.resetting) return true
-
     let isValid = true
 
     // Not using `find` because we want to validate all the fields
@@ -176,7 +140,6 @@ export default class extends Controller {
     if (
       !this.shouldValidateField(field) ||
       !field.hasAttribute('required') ||
-      this.resetting ||
       ((!eventType || eventType === 'focus') && field.classList.contains('is-server-error'))
     ) {
       return true
