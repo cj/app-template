@@ -345,8 +345,6 @@ GEM
     rack (2.2.3)
     rack-livereload (0.3.17)
       rack
-    rack-mini-profiler (2.2.0)
-      rack (>= 1.2.0)
     rack-proxy (0.6.5)
       rack
     rack-test (1.1.0)
@@ -496,9 +494,6 @@ GEM
       openssl-signature_algorithm (~> 1.0)
     turbo-rails (0.5.0)
       rails (>= 6.0.0)
-    turbolinks (5.2.1)
-      turbolinks-source (~> 5.2)
-    turbolinks-source (5.2.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicode-display_width (1.7.0)
@@ -593,7 +588,6 @@ DEPENDENCIES
   pg (~> 1.1)
   puma (~> 5.0)
   rack-livereload
-  rack-mini-profiler (~> 2.0)
   rails (~> 6.1.0)
   rails-i18n (~> 6.0)
   redis (~> 4.0)
@@ -614,7 +608,6 @@ DEPENDENCIES
   spring
   stimulus_reflex (~> 3.4.0)
   turbo-rails (~> 0.5.0)
-  turbolinks (~> 5)
   tzinfo-data
   vcr
   view_component

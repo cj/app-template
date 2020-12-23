@@ -24,7 +24,7 @@ class FormComponent::BaseTest < ViewComponent::TestCase
 
   %i(email password name).each do |input_name|
     test "rendering #{input_name} input" do
-      render_inline(FormComponent::Base.new(User.new, url: "/")) do |c|
+      render_inline(FormComponent::Base.new(User.new, url: "/", turbo_id: nil)) do |c|
         c.input(input_name)
       end
 
