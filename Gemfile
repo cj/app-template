@@ -146,3 +146,7 @@ gem "anycable-rails", "~> 1.0"
 gem "rails-i18n", "~> 6.0"
 
 gem "turbo-rails", "~> 0.5.0"
+
+gem "cuid", "~> 1.0"
+
+gem "request_store", "~> 1.5"

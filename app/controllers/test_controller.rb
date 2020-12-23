@@ -8,6 +8,6 @@ class TestController < ApplicationController
   end
 
   def secure
-    render(plain: "logged in as #{current_user.name}")
+    render
   end
 end

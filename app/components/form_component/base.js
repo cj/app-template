@@ -49,20 +49,22 @@ const waitFor = async (condFunc) =>
 
 export default class extends Controller {
   connect() {
-    const { form, onKeyPress, onSubmit, onFocus } = this
+    const { form, onKeyPress, onSubmit, onFocus, resetForm } = this
 
     this.firstInvalidField.focus()
 
     // form.dataset.remote = true
     form.setAttribute('novalidate', true)
+    document.addEventListener('turbo:before-cache', resetForm)
     form.addEventListener('keydown', onKeyPress)
     form.addEventListener('focusout', onFocus)
     form.addEventListener('submit', onSubmit)
   }
 
   disconnect() {
-    const { form, onKeyPress, onSubmit, onFocus } = this
+    const { form, onKeyPress, onSubmit, onFocus, resetForm } = this
 
+    document.removeEventListener('turbo:before-cache', resetForm)
     form.removeEventListener('keydown', onKeyPress)
     form.removeEventListener('focusout', onFocus)
     form.removeEventListener('submit', onSubmit)
@@ -90,7 +92,12 @@ export default class extends Controller {
   enableSubmit() {
     this.form.querySelectorAll('button[type="submit"]').forEach((element) => {
       element.disabled = false
-      element.removeChild(element.firstChild)
+
+      const spinner = element.querySelector('.spinner')
+
+      if (spinner) {
+        spinner.remove()
+      }
     })
   }
 
@@ -101,10 +108,19 @@ export default class extends Controller {
     })
   }
 
+  resetForm = () => {
+    this.formFields.forEach((field) => {
+      field.blur()
+      field.classList.remove('is-valid')
+    })
+    this.form.querySelectorAll('.alert').forEach((element) => element.remove())
+    this.enableSubmit()
+  }
+
   createSpinner() {
     const spinner = document.createElement('span')
 
-    spinner.className = 'spinner-border spinner-border-sm me-2'
+    spinner.className = 'spinner spinner-border spinner-border-sm me-2'
     spinner.role = 'status'
     spinner['aria-hidden'] = true
 

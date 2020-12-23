@@ -3,6 +3,7 @@
 module AppComponent
   class Base < ViewComponent::Base
     include ViewComponent::SlotableV2
+    include Turbo::FramesHelper
 
     TAILWINDCSS_COLORS = %i(primary secondary success danger warning info light dark link)
 
@@ -11,8 +12,20 @@ module AppComponent
       Rails.application.class.routes.url_helpers
     end
 
+    # :reek:DuplicateMethodCall
+    def turbo_id
+      @turbo_id ||= \
+        begin
+          class_name = self.class.to_s.gsub(":", "")
+          RequestStore.store[class_name] ||= 0
+          class_count = RequestStore.store[class_name] += 1
+          "#{class_name}#{class_count}"
+        end
+    end
+
     def self.generate_id
-      Nanoid.generate
+      # Nanoid.generate
+      Cuid::generate
     end
 
     def self.merge_classes(current_classes, *additional_classes)

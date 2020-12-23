@@ -7,6 +7,7 @@ class AuthController < ApplicationController
 
   helpers = %w(resource scope_name resource_name signed_in_resource
                resource_class resource_params devise_mapping)
+
   helper_method(*helpers)
 
   %i(log_in sign_up).each do |method|

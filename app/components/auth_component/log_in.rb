@@ -8,7 +8,7 @@ module AuthComponent
 
     def initialize(**options)
       @email = nil
-      @options = options
+      @options = { turbo_id: turbo_id }.merge(options)
     end
 
     def submit
@@ -18,7 +18,7 @@ module AuthComponent
     def user_params
       return unless params[:user]
 
-      params.require(:user).permit(:name, :email, :password, :password_confirmation)
+      params.require(:user).permit(:email, :password)
     end
 
     def validate
@@ -29,9 +29,10 @@ module AuthComponent
       if user&.valid_password?(user_params[:password])
         sign_in(:user, user)
 
-        controller.redirect_to(secure_path)
+        controller&.redirect_to(secure_path)
       else
-        flash[:error] = t("devise.failure.invalid", authentication_keys: Devise.authentication_keys.join(" "))
+        flash[:error] =
+          t("devise.failure.invalid", authentication_keys: Devise.authentication_keys.join(" "))
       end
     end
 

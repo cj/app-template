@@ -14,5 +14,9 @@ module FlashComponent
         message_type
       end
     end
+
+    # def before_render
+    #   puts flash.to_json
+    # end
   end
 end

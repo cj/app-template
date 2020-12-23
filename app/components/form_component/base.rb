@@ -3,7 +3,8 @@
 module FormComponent
   # Component for handling forms
   class Base < AppComponent::Base
-    attr_reader :resource, :scope, :url, :params, :base_options, :field_options, :fields, :classes, :count
+    attr_reader :resource, :parent_turbo_id, :scope, :url, :params, :base_options, :field_options, :fields, :classes,
+:count
 
     CLASSES = %w(d-flex flex-column)
 
@@ -13,6 +14,7 @@ module FormComponent
     def initialize(resource = nil, scope: resource.class.name.downcase, **options)
       @resource = resource
       @scope = scope
+      @parent_turbo_id = options.fetch(:turbo_id)
 
       @classes = Base.merge_classes(
         CLASSES,
@@ -25,6 +27,7 @@ module FormComponent
         *{
           controller: "form-component--base",
           action: "turbo:submit-end->form-component--base#turboSubmit",
+          'turbo-frame': turbo_id,
         },
       ]
 

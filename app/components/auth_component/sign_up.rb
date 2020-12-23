@@ -6,7 +6,7 @@ module AuthComponent
 
     def initialize(resource: User.new, **options)
       @user = resource
-      @options = options
+      @options = { turbo_id: turbo_id }.merge(options)
     end
 
     def submit
