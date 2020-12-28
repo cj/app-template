@@ -3,38 +3,28 @@
 module ButtonComponent
   # Button Component
   class Base < AppComponent::Base
-    attr_reader :base_options, :text, :size, :color, :variant
+    attr_reader :options, :text, :size, :color, :variant
 
-    CLASSES = {
-      base: %w(btn btn-primary shadow-sm),
-      color: {
-        solid: color_hash { |color| %W(btn-#{color}) },
-        outline: color_hash { |color| %W(btn-outline-#{color}) },
-      },
-    }.freeze
+    CLASSES = { base: %w(btn) }.freeze
 
     OPTIONS = { type: "button" }.freeze
 
-    def initialize(variant: "solid", size: nil, color: "primary", **options, &block)
+    def initialize(variant: "solid", size: nil, color: "primary", **opts, &block)
       @text = block.call
       @variant = variant.to_sym
       @color = color.to_sym
       @size = size
-      @base_options = [*OPTIONS, *options, *{
-        class: Base.merge_classes(base_classes, size_classes, color_classes, options[:class]),
+      @options = [*OPTIONS, *opts, *{
+        class: Base.merge_classes(base_classes, color_classes, opts[:class]),
       }].to_h
     end
 
     def button
-      button_tag(base_options) { text }
-    end
-
-    def size_classes
-      @size_classes ||= size ? "btn-#{size}" : nil
+      button_tag(options) { text }
     end
 
     def color_classes
-      @color_classes ||= CLASSES[:color][variant][color]
+      @color_classes ||= "btn-#{color}"
     end
 
     def base_classes

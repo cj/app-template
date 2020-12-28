@@ -1,0 +1,9 @@
+<%= render FormComponent::Base.new(user, options) do |c| %>
+  <%= c.input :email, required: true %>
+
+  <div class="d-flex">
+    <%= c.button(type: :submit) { 'Resend' } %>
+  </div>
+<% end %>
+
+<%= render AuthComponent::Links.new(class: 'mt-2') %>

@@ -2,7 +2,8 @@
 
 module FieldComponent
   class Base < AppComponent::Base
-    attr_reader :name, :value, :options, :resource, :error_handler, :label_options, :label_id, :size, :error_message
+    attr_reader :name, :field_name, :value, :options, :resource, :error_handler, :label_options, :label_id, :size,
+:error_message
 
     CLASSES = {
       base: %w(form-control),
@@ -17,14 +18,15 @@ module FieldComponent
     # @param **options:          {ActionView::Helpers::FormTagHelper#text_field_tag}
     # @return: ViewComponent
     def initialize(name, value = nil, resource: nil, label: {}, size: nil, **opts)
-      @name = Base.get_name(name)
+      @name = Array(name).last
+      @field_name = Base.get_name(name)
       @resource = resource
       @value = value
       @size = size
       @error_handler = error_handler
       @options = opts.merge(
         # Used for accessibility
-        id: opts[:id] || @name + Base.generate_id,
+        id: opts[:id] || @field_name + Base.generate_id,
       )
 
       @label_options = {
@@ -73,17 +75,26 @@ module FieldComponent
     def check_for_errors
       return unless resource
 
-      errors = resource.errors[name.gsub(/\w+\[/, "").gsub(/].*/, "").to_sym]
+      errors = resource.errors[name]
 
       if errors.any?
         @error_message = "#{label_options[:text]} #{errors.first}"
       end
     end
 
+    def add_validations
+      return unless resource
+
+      if resource.class.validators_on(name).map(&:class).include?(ActiveRecord::Validations::PresenceValidator)
+        unless @options.key(:required)
+          @options[:required] = true
+        end
+      end
+    end
+
     def before_render
-      # if error_handler
-      #   @error_message = error_handler.constantize&.field_error_handler({ name: name, value: value, context: self })
-      # end
+      add_validations
+
       check_for_errors
 
       @options = @options.merge(

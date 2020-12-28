@@ -8,8 +8,10 @@ module FormComponent
 
     CLASSES = %w(d-flex flex-column)
 
-    ALLOWED_INPUT_TYPES = %i(text email password checkbox)
+    ALLOWED_INPUT_TYPES = %i(text email password checkbox time_zone)
     ALLOWED_BUTTON_TYPES = %i(button submit)
+
+    delegate :content_security_policy_nonce, to: :helpers
 
     def initialize(resource = nil, scope: resource.class.name.downcase, **options)
       @resource = resource
@@ -45,7 +47,7 @@ module FormComponent
       render_input(*args)
     end
 
-    def render_input(name, value: (resource && resource[name]), type: :text, **options)
+    def render_input(name, value: resource&.public_send(name), type: :text, **options)
       possible_type = :"#{name.to_s.sub(/_.*/, "")}"
 
       # resource.type_for_attribute(name).type
@@ -66,7 +68,7 @@ module FormComponent
       )
     end
 
-    %i[checkbox].each do |method_name|
+    %i[checkbox time_zone].each do |method_name|
       define_method method_name do |name, **options, &block|
         render_input(name, options.merge(type: method_name), &block)
       end

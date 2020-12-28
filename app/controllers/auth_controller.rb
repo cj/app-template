@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class AuthController < ApplicationController
+  ROUTES = %i(login signup confirm)
+
   skip_before_action :authenticate_user!
 
   helper DeviseHelper
@@ -10,9 +12,13 @@ class AuthController < ApplicationController
 
   helper_method(*helpers)
 
-  %i(log_in sign_up).each do |method|
+  ROUTES.each do |method|
     define_method method do
       render
     end
+  end
+
+  def confirm
+    render
   end
 end

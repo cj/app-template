@@ -1,0 +1,16 @@
+<turbo-frame id="sign_up">
+  <%= render FormComponent::Base.new(user, options) do |c| %>
+    <%= c.input :name %>
+    <%= c.input :email %>
+    <%= c.input :password %>
+    <%= c.input :password_confirmation %>
+
+    <%= c.time_zone :time_zone %>
+
+    <div class="d-flex">
+      <%= c.submit { 'Sign Up' } %>
+    </div>
+  <% end %>
+</turbo-frame>
+
+<%= render AuthComponent::Links.new(class: 'mt-2') %>

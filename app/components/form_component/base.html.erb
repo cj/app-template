@@ -1,11 +1,13 @@
-<%= form_with(base_options) do %>
-  <% if parent_turbo_id %>
-    <%= hidden_field(nil, :parent_turbo_component, value: parent_turbo_id, id: parent_turbo_id) %>
-  <% end %>
+<%= turbo_frame_tag turbo_id do %>
+  <%= form_with(base_options) do %>
+    <% if parent_turbo_id %>
+      <%= hidden_field(nil, :parent_turbo_component, value: parent_turbo_id, id: parent_turbo_id) %>
+    <% end %>
 
-  <%= turbo_frame_tag turbo_id do %>
     <%= render FlashComponent::Base.new %>
-  <% end %>
 
-  <%= content %>
+    <%= content %>
+
+    <%= invisible_captcha nonce: true %>
+  <% end %>
 <% end %>

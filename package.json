@@ -24,7 +24,7 @@
     "rails-guard": "bundle exec guard",
     "rails:anycable:go": "onchange --initial --kill 'config/**' 'lib/**' 'Gemfile.lock' -- anycable-go --host=localhost --port=3334",
     "rails:anycable:rails": "onchange --initial --kill 'config/**' 'lib/**' 'Gemfile.lock' -- bundle exec anycable --debug",
-    "rails:s": "onchange --initial --kill 'config/**' 'lib/**' 'Gemfile.lock' -- bin/rails s",
+    "rails:s": "onchange --initial --kill '**/*.yml' 'config/**' 'lib/**' 'Gemfile.lock' -- bin/rails s",
     "rails:webpack": "onchange --initial --kill 'yarn.lock' 'babel.config.js' -- bin/webpack-dev-server"
   },
   "dependencies": {
@@ -38,7 +38,10 @@
     "cable_ready": "^4.4.5",
     "debounced": "^0.0.5",
     "i18n-js": "^3.8.0",
+    "js-cookie": "^2.2.1",
+    "jstz": "^2.1.1",
     "lodash": "^4.17.20",
+    "mdb-ui-kit": "^3.0.0",
     "popper.js": "^1.16.1",
     "postcss": "^7",
     "rails-erb-loader": "^5.5.2",

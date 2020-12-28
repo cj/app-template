@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 2020_12_18_220420) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string("encrypted_password", default: "", null: false)
     t.datetime("reset_password_sent_at")
     t.datetime("remember_created_at")
@@ -42,8 +42,11 @@ ActiveRecord::Schema.define(version: 2020_12_18_220420) do
     t.string("unconfirmed_email_bidx")
     t.text("unlock_token_ciphertext")
     t.string("unlock_token_bidx")
-    t.text("name_bidx")
-    t.text("name_ciphertext")
+    t.text("first_name_bidx")
+    t.text("first_name_ciphertext")
+    t.text("last_name_bidx")
+    t.text("last_name_ciphertext")
+    t.string("time_zone")
     t.string("invitation_token_ciphertext")
     t.datetime("invitation_created_at")
     t.datetime("invitation_sent_at")
@@ -55,11 +58,12 @@ ActiveRecord::Schema.define(version: 2020_12_18_220420) do
     t.index(["confirmation_token_bidx"], name: "index_users_on_confirmation_token_bidx", unique: true)
     t.index(["current_sign_in_ip_bidx"], name: "index_users_on_current_sign_in_ip_bidx")
     t.index(["email_bidx"], name: "index_users_on_email_bidx", unique: true)
+    t.index(["first_name_bidx"], name: "index_users_on_first_name_bidx")
     t.index(["invitation_token_ciphertext"], name: "index_users_on_invitation_token_ciphertext", unique: true)
     t.index(["invited_by_id"], name: "index_users_on_invited_by_id")
     t.index(["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by")
+    t.index(["last_name_bidx"], name: "index_users_on_last_name_bidx")
     t.index(["last_sign_in_ip_bidx"], name: "index_users_on_last_sign_in_ip_bidx")
-    t.index(["name_bidx"], name: "index_users_on_name_bidx")
     t.index(["reset_password_token_bidx"], name: "index_users_on_reset_password_token_bidx", unique: true)
     t.index(["unconfirmed_email_bidx"], name: "index_users_on_unconfirmed_email_bidx", unique: true)
     t.index(["unlock_token_bidx"], name: "index_users_on_unlock_token_bidx", unique: true)

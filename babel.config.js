@@ -44,6 +44,7 @@ module.exports = function babelConfig(api) {
         {
           alias: {
             '~': './app/javascript',
+            mdb: 'mdb-ui-kit/src/js/mdb',
           },
         },
       ],

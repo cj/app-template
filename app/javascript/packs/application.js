@@ -5,6 +5,7 @@
 
 import '../channels'
 import '../controllers'
+import '../time_zone'
 // import '../components'
 import 'popper.js'
 import 'bootstrap'

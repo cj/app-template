@@ -121,7 +121,7 @@ gem "jwt", require: false # for JWT feature
 gem "rotp", require: false # for OTP feature
 gem "rqrcode", require: false # for OTP feature
 gem "webauthn", require: false # for WebAuthn feature
-gem "view_component", require: "view_component/engine"
+gem "view_component", require: "view_component/engine", github: "cj/view_component", branch: "main"
 
 gem "stimulus_reflex", "~> 3.4.0"
 gem "view_component_reflex"
@@ -147,3 +147,11 @@ gem "turbo-rails", "~> 0.5.0"
 gem "cuid", "~> 1.0"
 
 gem "request_store", "~> 1.5"
+
+gem "oj", "~> 3.10"
+
+gem "invisible_captcha", "~> 1.1"
+
+gem "name_of_person", "~> 1.1"
+
+gem "logstop", "~> 0.2.6"

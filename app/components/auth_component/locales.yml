@@ -1,0 +1,10 @@
+en:
+  auth_component:
+    signup:
+      header: 'Sign Up'
+    login:
+      header: 'Login'
+      invalid: 'Invalid %{authentication_keys} or password.'
+    confirm:
+      email_confirmed: 'Email Address Confirmed'
+      invalid_token: 'Invalid Token'

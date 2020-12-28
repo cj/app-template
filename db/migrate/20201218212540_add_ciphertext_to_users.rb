@@ -21,8 +21,12 @@ class AddCiphertextToUsers < ActiveRecord::Migration[6.1]
       remove_column(:users, field)
     end
 
-    add_column(:users, :name_bidx, :text)
-    add_column(:users, :name_ciphertext, :text)
-    add_index(:users, :name_bidx)
+    %i(first_name last_name).each do |field|
+      add_column(:users, :"#{field}_bidx", :text)
+      add_column(:users, :"#{field}_ciphertext", :text)
+      add_index(:users, :"#{field}_bidx")
+    end
+
+    add_column(:users, :time_zone, :string, index: true)
   end
 end

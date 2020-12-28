@@ -5,11 +5,23 @@ module AppComponent
     include ViewComponent::SlotableV2
     include Turbo::FramesHelper
 
-    TAILWINDCSS_COLORS = %i(primary secondary success danger warning info light dark link)
+    attr_reader :options
+
+    VIEW_METHODS = %i(refresh! controller)
+
+    def initialize(params: nil, **options)
+      @params = params if params
+
+      @options = { turbo_id: turbo_id }.merge(options)
+    end
 
     # :reek:UtilityFunction
     def main_app
       Rails.application.class.routes.url_helpers
+    end
+
+    def params
+      controller&.params || @params || {}
     end
 
     # :reek:DuplicateMethodCall
@@ -40,17 +52,9 @@ module AppComponent
       [Array(current_classes), *classess_to_merge].reduce([], :concat).map(&:strip).uniq
     end
 
-    def self.color_hash(&block)
-      Hash[
-        TAILWINDCSS_COLORS.zip(
-          TAILWINDCSS_COLORS.map.each { |color| block.call(color) },
-        )
-      ]
-    end
-
     def method_missing(method, *_args, &_block)
       # We want to ignore the methods if called outside of a view as they are just view component reflex related.
-      unless %i(refresh!).include?(method)
+      unless VIEW_METHODS.include?(method)
         super
       end
     end
