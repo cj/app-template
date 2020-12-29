@@ -8,15 +8,17 @@ module AuthComponent
 
       @user = User.new(user_params)
 
-      if user_params
+      if user_params.present?
         handle_sending_confirmation
-      elsif token_params
+      elsif token_params.present?
         handle_token_confirm
       end
     end
 
     def handle_sending_confirmation
-      @user = User.send_confirmation_instructions(user_params)
+      User.send_confirmation_instructions(user_params)
+
+      @user = User.new
     end
 
     def handle_token_confirm
@@ -42,7 +44,7 @@ module AuthComponent
       if signed_in?(resource_name)
         secure_path
       else
-        signup_path
+        login_path
       end
     end
 

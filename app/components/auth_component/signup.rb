@@ -6,15 +6,17 @@ module AuthComponent
 
     def initialize(resource: User.new, **options)
       @user = resource
-      @options = { turbo_id: turbo_id }.merge(options)
+
+      super(options)
     end
 
     def submit(params = nil)
       @params = params if params
 
-      if validate
-        user.save
+      if valid? && user.save
         sign_in(user)
+
+        controller&.redirect_to(secure_path)
       end
     end
 
@@ -22,7 +24,7 @@ module AuthComponent
       params[:user]&.permit(:name, :email, :password, :password_confirmation, :time_zone)
     end
 
-    def validate
+    def valid?
       user.assign_attributes(user_params)
       user.valid?
     end

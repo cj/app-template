@@ -27,6 +27,7 @@ class AddCiphertextToUsers < ActiveRecord::Migration[6.1]
       add_index(:users, :"#{field}_bidx")
     end
 
-    add_column(:users, :time_zone, :string, index: true)
+    add_column(:users, :time_zone, :string)
+    add_index(:users, :time_zone)
   end
 end

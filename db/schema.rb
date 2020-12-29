@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 2020_12_18_220420) do
     t.index(["last_name_bidx"], name: "index_users_on_last_name_bidx")
     t.index(["last_sign_in_ip_bidx"], name: "index_users_on_last_sign_in_ip_bidx")
     t.index(["reset_password_token_bidx"], name: "index_users_on_reset_password_token_bidx", unique: true)
+    t.index(["time_zone"], name: "index_users_on_time_zone")
     t.index(["unconfirmed_email_bidx"], name: "index_users_on_unconfirmed_email_bidx", unique: true)
     t.index(["unlock_token_bidx"], name: "index_users_on_unlock_token_bidx", unique: true)
   end

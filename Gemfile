@@ -92,6 +92,8 @@ group :development do
   gem "letter_opener"
 
   gem "annotate", "~> 3.1"
+
+  gem "lol_dba", "~> 2.2"
 end
 
 group :test do

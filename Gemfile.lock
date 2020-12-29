@@ -127,6 +127,9 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
+    active_record_doctor (1.7.1)
+      activerecord (>= 4.2)
+      railties (>= 4.2)
     activejob (6.1.0)
       activesupport (= 6.1.0)
       globalid (>= 0.3.6)
@@ -302,6 +305,10 @@ GEM
     local_time (2.1.0)
     lockbox (0.6.1)
     logstop (0.2.6)
+    lol_dba (2.2.0)
+      actionpack (>= 3.0, < 7.0)
+      activerecord (>= 3.0, < 7.0)
+      railties (>= 3.0, < 7.0)
     loofah (2.8.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -555,6 +562,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_record_doctor (~> 1.7)
   annotate (~> 3.1)
   anycable-rails (~> 1.0)
   bcrypt (~> 3.1.7)
@@ -593,6 +601,7 @@ DEPENDENCIES
   local_time (~> 2.0)
   lockbox (~> 0.6.1)
   logstop (~> 0.2.6)
+  lol_dba (~> 2.2)
   minitest-reporters (~> 1.4)
   minitest-snapshots (~> 0.3.0)
   minitest-spec-rails (~> 6.0)

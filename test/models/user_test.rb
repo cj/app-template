@@ -57,6 +57,7 @@
 #  index_users_on_last_name_bidx               (last_name_bidx)
 #  index_users_on_last_sign_in_ip_bidx         (last_sign_in_ip_bidx)
 #  index_users_on_reset_password_token_bidx    (reset_password_token_bidx) UNIQUE
+#  index_users_on_time_zone                    (time_zone)
 #  index_users_on_unconfirmed_email_bidx       (unconfirmed_email_bidx) UNIQUE
 #  index_users_on_unlock_token_bidx            (unlock_token_bidx) UNIQUE
 #

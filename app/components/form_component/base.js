@@ -74,7 +74,9 @@ export default class extends Controller {
     this.validateField(event.target, 'focus')
   }
 
-  onKeyPress = debounce((event) => this.validateField(event.target, 'press'), 250)
+  onKeyPress = debounce((event) => {
+    this.validateField(event.target, event.which === 9 ? 'focus' : 'press')
+  }, 250)
 
   onSubmit = async (event) => {
     this.disabledSubmit()

@@ -1,15 +1,18 @@
-<form class="d-flex flex-column" data-controller="form-component--base" data-action="turbo:submit-end-&gt;form-component--base#turboSubmit" data-turbo-frame="FormComponentBase1" action="/" accept-charset="UTF-8" method="post">
+<turbo-frame id="FormComponentBase1">
+  <form class="d-flex flex-column" data-controller="form-component--base" data-action="turbo:submit-end-&gt;form-component--base#turboSubmit" data-turbo-frame="FormComponentBase1" action="/" accept-charset="UTF-8" method="post">
 
-  <turbo-frame id="FormComponentBase1">
-</turbo-frame>
-  <div class="form-group mb-2 ">
+    
+
+    <div class="form-group mb-2 ">
   <label for="user[name]generate_id" class="form-label">Name</label>
 
 
   <div class="mt-1">
-    <input type="text" name="user[name]" id="user[name]generate_id" class="form-control" aria-invalid="false" data-error-field-name="Name" />
+    <input type="text" name="user[name]" id="user[name]generate_id" required="required" class="form-control" aria-invalid="false" data-error-field-name="Name" />
 
   </div>
 </div>
 
-</form>
+
+    <div class="honeypotx_1609193585"><style media="screen" nonce="6eV4Wx7/8BAlDj3iWqxFyg==">.honeypotx_1609193585 {position:absolute!important;height:1px;width:1px;overflow:hidden;}</style><label for="honeypotx">If you are a human, ignore this field</label><input type="text" name="honeypotx" id="honeypotx" autocomplete="off" tabindex="-1" nonce="true" /></div>
+</form></turbo-frame>

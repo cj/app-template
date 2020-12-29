@@ -57,6 +57,7 @@
 #  index_users_on_last_name_bidx               (last_name_bidx)
 #  index_users_on_last_sign_in_ip_bidx         (last_sign_in_ip_bidx)
 #  index_users_on_reset_password_token_bidx    (reset_password_token_bidx) UNIQUE
+#  index_users_on_time_zone                    (time_zone)
 #  index_users_on_unconfirmed_email_bidx       (unconfirmed_email_bidx) UNIQUE
 #  index_users_on_unlock_token_bidx            (unlock_token_bidx) UNIQUE
 #
@@ -69,7 +70,9 @@ class User < ApplicationRecord
   encrypts :email, :reset_password_token, :current_sign_in_ip, :last_sign_in_ip, :confirmation_token,
 :unconfirmed_email, :unlock_token, :first_name, :last_name, :invitation_token
 
-  blind_index :email, :unconfirmed_email, :first_name, :last_name, :reset_password_token, :confirmation_token,
+  blind_index :email, expression: ->(value) { value.downcase }
+
+  blind_index :unconfirmed_email, :first_name, :last_name, :reset_password_token, :confirmation_token,
   :unlock_token, :invitation_token
 
   # Validations
