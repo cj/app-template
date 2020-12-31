@@ -1,0 +1,29 @@
+<%= tag.div tag_options do %>
+  <div class="container d-flex justify-content-between">
+    <div class="row">
+      <small class="col-auto">
+        New Events Every Month!
+      </small>
+
+      <small class="col-auto fw-bold">
+        <a href="/events" class="link-light">View Current Events →</a>
+      </small>
+    </div>
+
+    <div class="row fw-bold">
+      <small class="col-auto">
+        <%= render(LinkComponent::Phone.new({
+          color: 'light',
+          icon_left: { svg: 'phone-solid' },
+        })) {"4693890068" } %>
+      </small>
+
+      <small class="col-auto">
+        <%= render(LinkComponent::Email.new({
+          color: 'light',
+          icon_left: { svg: 'email-solid' },
+        })) { "hello@youngactorshouse.com" } %>
+      </small>
+    </div>
+  </div>
+<% end %>

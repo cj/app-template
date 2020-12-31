@@ -7,12 +7,20 @@ module AppComponent
 
     attr_reader :options
 
-    VIEW_METHODS = %i(refresh! controller)
+    CLASSES = {}
+
+    VIEW_METHODS = %i[refresh! controller].freeze
 
     def initialize(params: nil, **options)
       @params = params if params
 
       @options = { turbo_id: turbo_id }.merge(options)
+    end
+
+    def tag_options
+      {
+        class: Base.merge_classes(self.class::CLASSES[:base], options[:class]),
+      }
     end
 
     # :reek:UtilityFunction
@@ -28,7 +36,7 @@ module AppComponent
     def turbo_id
       @turbo_id ||= \
         begin
-          class_name = self.class.to_s.gsub(":", "")
+          class_name = self.class.to_s.delete(":")
           RequestStore.store[class_name] ||= 0
           class_count = RequestStore.store[class_name] += 1
           "#{class_name}#{class_count}"
@@ -37,7 +45,7 @@ module AppComponent
 
     def self.generate_id
       # Nanoid.generate
-      Cuid::generate
+      Cuid.generate
     end
 
     def self.merge_classes(current_classes, *additional_classes)
@@ -54,9 +62,7 @@ module AppComponent
 
     def method_missing(method, *_args, &_block)
       # We want to ignore the methods if called outside of a view as they are just view component reflex related.
-      unless VIEW_METHODS.include?(method)
-        super
-      end
+      super unless VIEW_METHODS.include?(method)
     end
 
     def respond_to_missing?(*)

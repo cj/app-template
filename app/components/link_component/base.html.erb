@@ -1,0 +1,5 @@
+<%= link_to(href, tag_options) do %>
+  <%= render(IconComponent::Base.new(icon_left)) if @icon_left %>
+  <%= tag.div content.squish %>
+  <%= render(IconComponent::Base.new(icon_right)) if @icon_right %>
+<% end %>

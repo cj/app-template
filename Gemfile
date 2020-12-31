@@ -125,8 +125,6 @@ gem "rqrcode", require: false # for OTP feature
 gem "webauthn", require: false # for WebAuthn feature
 gem "view_component", require: "view_component/engine", github: "cj/view_component", branch: "main"
 
-gem "stimulus_reflex", "~> 3.4.0"
-gem "view_component_reflex"
 gem "i18n-js", "~> 3.8"
 
 gem "blind_index", "~> 2.2"
@@ -157,3 +155,5 @@ gem "invisible_captcha", "~> 1.1"
 gem "name_of_person", "~> 1.1"
 
 gem "logstop", "~> 0.2.6"
+
+gem "inline_svg", "~> 1.7"
