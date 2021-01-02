@@ -7,16 +7,24 @@ module AuthComponent
     def submit(params = nil)
       @params = params if params
 
-      return user&.errors unless valid?
+      return user_errors unless valid?
 
       if user&.valid_password?(user_params[:password])
         sign_in(:user, user)
 
         controller&.redirect_to(secure_path)
-      elsif controller
+      else
+        user_errors
+      end
+    end
+
+    def user_errors
+      if controller
         flash[:error] =
           t(".invalid", authentication_keys: Devise.authentication_keys.join(" "))
       end
+
+      user&.errors
     end
 
     def user_params
@@ -28,7 +36,7 @@ module AuthComponent
 
       @user = User.find_for_authentication(email: email)
 
-      user.valid?
+      user&.valid?
     end
 
     def before_render

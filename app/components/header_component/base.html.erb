@@ -20,17 +20,16 @@
           <a class="nav-link" href="#">Link</a>
         </li>
 
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
+        <%= render DropdownComponent::Base.new(tag: 'li', class: 'nav-item') do |c| %>
+          <%= c.button(class: 'nav-link', tag: 'a') { "Dropdown" } %>
+
+          <%= c.list(class: 'dropdown-menu-end') do |l| %>
+            <%= l.item { "Action" } %>
+            <%= l.item { "Another Action" } %>
+            <%= l.item(divider: true) %>
+            <%= l.item { "Something else here" } %>
+          <% end %>
+        <% end %>
 
         <%# <li class="nav-item">                                                                   %>
         <%#   <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> %>

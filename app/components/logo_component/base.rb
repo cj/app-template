@@ -17,12 +17,6 @@ module LogoComponent
       super
     end
 
-    def tag_options
-      options.merge(
-        class: Base.merge_classes(CLASSES[:base], options[:class]),
-      )
-    end
-
     def logo_tag_options
       logo.deep_merge({
         width: 60,

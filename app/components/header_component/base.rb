@@ -3,7 +3,7 @@
 module HeaderComponent
   class Base < AppComponent::Base
     CLASSES = {
-      base: "navbar navbar-expand-lg shadow-sm",
+      base: "navbar navbar-expand-lg shadow-sm navbar-light",
     }.freeze
 
     DARK_COLORS = %w(primary).freeze

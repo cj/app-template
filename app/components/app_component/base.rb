@@ -18,7 +18,7 @@ module AppComponent
     end
 
     def tag_options
-      {
+      @tag_options ||= {
         class: Base.merge_classes(self.class::CLASSES[:base], options[:class]),
       }
     end
