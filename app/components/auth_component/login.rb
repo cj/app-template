@@ -12,7 +12,7 @@ module AuthComponent
       if user&.valid_password?(user_params[:password])
         sign_in(:user, user)
 
-        controller&.redirect_to(secure_path)
+        controller&.redirect_to(dashboard_path)
       else
         user_errors
       end
@@ -20,8 +20,12 @@ module AuthComponent
 
     def user_errors
       if controller
-        flash[:error] =
-          t(".invalid", authentication_keys: Devise.authentication_keys.join(" "))
+        controller.head(422)
+
+        flash[:error] = {
+          header: t(".error_header"),
+          message: t(".invalid", authentication_keys: Devise.authentication_keys.join(" ")),
+        }
       end
 
       user&.errors

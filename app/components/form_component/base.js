@@ -2,7 +2,8 @@ import { capitalize, debounce } from 'lodash'
 
 /* eslint-disable class-methods-use-this, no-param-reassign */
 import { Controller } from 'stimulus'
-import { Turbo } from '@hotwired/turbo-rails'
+
+// import { Turbo } from '@hotwired/turbo-rails'
 
 // import StimulusReflex from 'stimulus_reflex'
 
@@ -49,22 +50,32 @@ const waitFor = async (condFunc) =>
 
 export default class extends Controller {
   connect() {
-    const { form, onKeyPress, onSubmit, onFocus, resetForm } = this
+    const { form, onKeyPress, onSubmit, onFocus, resetForm, handleTurboEnd } = this
 
     this.firstInvalidField.focus()
 
     // form.dataset.remote = true
     form.setAttribute('novalidate', true)
+
     document.addEventListener('turbo:before-cache', resetForm)
+    document.addEventListener('turbo:submit-end', handleTurboEnd)
+    // document.addEventListener('turbo:submit-end', async (event) => {
+    //   const html = await event.detail.fetchResponse.responseHTML
+    //   document.open()
+    //   document.write(html)
+    //   document.close()
+    //   Turbo.load()
+    // })
     form.addEventListener('keydown', onKeyPress)
     form.addEventListener('focusout', onFocus)
     form.addEventListener('submit', onSubmit)
   }
 
   disconnect() {
-    const { form, onKeyPress, onSubmit, onFocus, resetForm } = this
+    const { form, onKeyPress, onSubmit, onFocus, resetForm, handleTurboEnd } = this
 
     document.removeEventListener('turbo:before-cache', resetForm)
+    document.removeEventListener('turbo:submit-end', handleTurboEnd)
     form.removeEventListener('keydown', onKeyPress)
     form.removeEventListener('focusout', onFocus)
     form.removeEventListener('submit', onSubmit)
@@ -110,11 +121,46 @@ export default class extends Controller {
     })
   }
 
+  handleTurboEnd = (event) => {
+    const { success } = event.detail
+
+    if (!success) {
+      this.enableSubmit()
+    }
+  }
+
   resetForm = () => {
     this.formFields.forEach((field) => {
+      // const fieldType = field.type.toLowerCase()
+      //
+      // switch (fieldType) {
+      //   case 'text':
+      //   case 'password':
+      //   case 'textarea':
+      //   case 'hidden':
+      //     field.value = ''
+      //     break
+      //
+      //   case 'radio':
+      //   case 'checkbox':
+      //     if (field.checked) {
+      //       field.checked = false
+      //     }
+      //     break
+      //
+      //   case 'select-one':
+      //   case 'select-multi':
+      //     field.selectedIndex = -1
+      //     break
+      //
+      //   default:
+      //     break
+      // }
+
       field.blur()
       field.classList.remove('is-valid')
     })
+
     this.form.querySelectorAll('.alert').forEach((element) => element.remove())
     this.enableSubmit()
   }
@@ -127,20 +173,6 @@ export default class extends Controller {
     spinner['aria-hidden'] = true
 
     return spinner
-  }
-
-  async turboSubmit(event) {
-    const {
-      success,
-      fetchResponse: { response: { redirected, url } } = { response: {} },
-    } = event.detail
-
-    if (success && redirected) {
-      Turbo.clearCache()
-      Turbo.visit(url)
-    } else {
-      this.enableSubmit()
-    }
   }
 
   validateForm() {

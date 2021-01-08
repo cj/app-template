@@ -1,3 +1,4 @@
+---
 en:
   auth_component:
     signup:
@@ -5,6 +6,7 @@ en:
     login:
       header: 'Login'
       invalid: 'Invalid %{authentication_keys} or password.'
+      error_header: 'Login Error'
     confirm:
       email_confirmed: 'Email Address Confirmed'
       invalid_token: 'Invalid Token'

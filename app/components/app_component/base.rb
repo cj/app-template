@@ -4,6 +4,8 @@ module AppComponent
   class Base < ViewComponent::Base
     include ViewComponent::SlotableV2
     include Turbo::FramesHelper
+    include Turbo::Streams::ActionHelper
+    include Turbo::StreamsHelper
 
     attr_reader :options
 

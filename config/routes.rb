@@ -24,5 +24,15 @@ Rails.application.routes.draw do
     match "/#{route}", to: "auth##{route}", via: :all
   end
 
+  DashboardController::ROUTES.each do |route|
+    route_match = "/dashboard" +
+      if route == :index
+        "/"
+      else
+        "/#{route}"
+      end
+    match route_match, to: "dashboard##{route}", via: :all
+  end
+
   get "/secure", to: "test#secure"
 end

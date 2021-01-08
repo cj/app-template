@@ -15,7 +15,11 @@ class ApplicationController < ActionController::Base
   def check_for_spam
     # This trick is for Turbo forms so that it persists the flash error twice.
     if session[:spam_redirect]
-      flash[:error] = flash[:error]
+      flash[:error] = {
+        header: "Spam Error",
+        message: flash[:error],
+      }
+
       session.delete(:spam_redirect)
     end
 

@@ -1,4 +1,6 @@
-<%= render HeaderComponent::Info.new %>
+<% if show_info_bar %>
+  <%= render HeaderComponent::Info.new %>
+<% end %>
 
 <%= tag.nav tag_options do %>
   <div class="container">

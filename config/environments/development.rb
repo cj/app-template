@@ -43,6 +43,8 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
+  config.action_controller.perform_caching = false
+
   config.cache_store = :redis_cache_store, {
     url: ENV.fetch("REDIS_URL"),
     reconnect_attempts: 1, # Defaults to 0

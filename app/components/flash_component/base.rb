@@ -2,6 +2,23 @@
 
 module FlashComponent
   class Base < AppComponent::Base
+    def flash_messages
+      flash.
+        map do |type, message|
+          if type == "timedout"
+            [
+              "info",
+              {
+                header: t(".timedout.header"),
+                message: t(".timedout.message"),
+              },
+            ]
+          else
+            [type, message]
+          end
+        end
+    end
+
     def alert_class(message_type)
       case message_type
       when "error"
@@ -14,9 +31,5 @@ module FlashComponent
         message_type
       end
     end
-
-    # def before_render
-    #   puts flash.to_json
-    # end
   end
 end

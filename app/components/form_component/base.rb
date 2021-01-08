@@ -28,7 +28,6 @@ module FormComponent
         *options[:data],
         *{
           controller: "form-component--base",
-          action: "turbo:submit-end->form-component--base#turboSubmit",
           'turbo-frame': turbo_id,
         },
       ]
@@ -41,6 +40,12 @@ module FormComponent
       }].to_h
 
       @fields = []
+    end
+
+    def set_content_type
+      return unless controller && request.headers["Accept"].include?("turbo-stream")
+
+      controller.content_type = "text/html; turbo-stream"
     end
 
     def input(*args)
@@ -88,6 +93,8 @@ module FormComponent
 
     def before_render
       @base_options[:url] ||= request.fullpath
+
+      # set_content_type
     end
 
     # def before_render

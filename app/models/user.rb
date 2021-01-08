@@ -62,6 +62,7 @@
 #  index_users_on_unlock_token_bidx            (unlock_token_bidx) UNIQUE
 #
 class User < ApplicationRecord
+  rolify
   has_person_name
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, :confirmable,
@@ -70,10 +71,10 @@ class User < ApplicationRecord
   encrypts :email, :reset_password_token, :current_sign_in_ip, :last_sign_in_ip, :confirmation_token,
 :unconfirmed_email, :unlock_token, :first_name, :last_name, :invitation_token
 
-  blind_index :email, expression: ->(value) { value.downcase }
+  blind_index :email, expression: ->(value) { value.downcase }, key: ENV.fetch("BLIND_INDEX__USER")
 
   blind_index :unconfirmed_email, :first_name, :last_name, :reset_password_token, :confirmation_token,
-  :unlock_token, :invitation_token
+  :unlock_token, :invitation_token, key: ENV.fetch("BLIND_INDEX__USER")
 
   # Validations
   validates :name, presence: true

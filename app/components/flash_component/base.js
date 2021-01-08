@@ -1,14 +1,19 @@
 import './base.scss'
 
-import { Alert } from 'bootstrap'
+import { Toast } from 'bootstrap'
 import ApplicationController from '~/controllers/application_controller'
 
 export default class extends ApplicationController {
   connect() {
-    this.alert = new Alert(this.element)
+    this.toast = new Toast(this.element)
+    this.toast.show()
+
+    this.element.addEventListener('hidden.bs.toast', () => {
+      this.element.remove()
+    })
   }
 
   close() {
-    this.alert.close()
+    this.toast.close()
   }
 }

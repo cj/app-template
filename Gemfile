@@ -65,6 +65,9 @@ group :development, :test do
   gem "bullet"
 
   gem "dotenv-rails", "~> 2.7", require: "dotenv/rails-now"
+
+  gem "awesome_print", "~> 1.8"
+  gem "super_awesome_print"
 end
 
 group :development do
@@ -142,7 +145,7 @@ gem "anycable-rails", "~> 1.0"
 
 gem "rails-i18n", "~> 6.0"
 
-gem "turbo-rails", "~> 0.5.0"
+gem "turbo-rails", "~> 0.5.3"
 
 gem "cuid", "~> 1.0"
 
@@ -157,3 +160,5 @@ gem "name_of_person", "~> 1.1"
 gem "logstop", "~> 0.2.6"
 
 gem "inline_svg", "~> 1.7"
+
+gem "rolify", "~> 5.3"

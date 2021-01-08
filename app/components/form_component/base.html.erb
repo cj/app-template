@@ -1,10 +1,10 @@
 <%= turbo_frame_tag turbo_id do %>
+  <%= render FlashComponent::Base.new %>
+
   <%= form_with(base_options) do %>
     <% if parent_turbo_id %>
       <%= hidden_field(nil, :parent_turbo_component, value: parent_turbo_id, id: parent_turbo_id) %>
     <% end %>
-
-    <%= render FlashComponent::Base.new %>
 
     <%= content %>
 

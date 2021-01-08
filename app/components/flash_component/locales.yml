@@ -1,0 +1,7 @@
+---
+en:
+  flash_component:
+    base:
+      timedout:
+        header: Timed Out
+        message: Your session expired. Please sign in again to continue.

@@ -2,16 +2,17 @@
 
 module HeaderComponent
   class Base < AppComponent::Base
+    attr_reader :color, :show_info_bar
+
     CLASSES = {
       base: "navbar navbar-expand-lg shadow-sm navbar-light",
     }.freeze
 
     DARK_COLORS = %w(primary).freeze
 
-    attr_reader :color
-
-    def initialize(color: "light", **options)
+    def initialize(color: "light", show_info_bar: false, **options)
       @color = color
+      @show_info_bar = show_info_bar
 
       super(options)
     end
