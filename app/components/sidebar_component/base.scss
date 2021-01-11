@@ -1,0 +1,94 @@
+.sidebar {
+  width: 100%;
+  display: flex;
+
+  --animate-duration: 500ms;
+
+  @include media-breakpoint-up(lg) {
+    &.shadow {
+      box-shadow: none !important;
+    }
+  }
+
+  @include media-breakpoint-down(lg) {
+    &-float {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 60vw;
+      max-width: 300px;
+      height: 100vh;
+      z-index: 2001;
+      justify-content: start;
+
+      ul {
+        margin-left: 0 !important;
+      }
+
+      background-color: $white;
+
+      &:before {
+        content: '';
+      }
+
+      &.closed {
+        visibility: hidden;
+        transform: translate3d(-100%, 0, 0);
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .sidebar-mask {
+    background-color: $gray-500;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+
+    --animate-duration: 500ms;
+  }
+
+  .sidebar.open ~ .sidebar-mask {
+    opacity: 0.4;
+    top: 0;
+    left: 0;
+    z-index: 2000;
+  }
+
+  .sidebar.closed ~ .sidebar-mask {
+    opacity: 0;
+    top: 0;
+    left: 0;
+    z-index: 2000;
+    pointer-events: none;
+  }
+}
+
+@keyframes fadeOutSidebarMask {
+  from {
+    opacity: 0.4;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.fadeOutSidebarMask {
+  animation-name: fadeOutSidebarMask;
+}
+
+@keyframes fadeInSidebarMask {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 0.4;
+  }
+}
+
+.fadeInSidebarMask {
+  animation-name: fadeInSidebarMask;
+}

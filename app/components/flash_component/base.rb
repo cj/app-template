@@ -4,6 +4,7 @@ module FlashComponent
   class Base < AppComponent::Base
     def flash_messages
       flash.
+        reject { |_type, message| message.to_s == "true" }.
         map do |type, message|
           if type == "timedout"
             [
