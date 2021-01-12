@@ -137,7 +137,7 @@ gem "devise", "~> 4.7"
 gem "devise-i18n", "~> 1.9"
 gem "devise_invitable", "~> 2.0"
 gem "devise_masquerade", github: "excid3/devise_masquerade"
-gem "omniauth", github: "omniauth/omniauth"
+gem "omniauth", "~> 1.9.1"
 
 # gem "strong_migrations"
 
