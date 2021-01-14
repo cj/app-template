@@ -12,6 +12,11 @@
         expanded: false,
         label: 'Toggle navigation',
       },
+      data: {
+        controller: "sidebar-component--base",
+        "sidebar-component--base-id-value": "#navbarHeaderContent",
+        action: "click->sidebar-component--base#openSidebar",
+      },
     }) {
       render IconComponent::Base.new(svg: 'bars-regular')
     } %>

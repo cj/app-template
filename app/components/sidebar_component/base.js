@@ -12,8 +12,17 @@ const CLOSED_CLASSES = [CLOSED_CLASS, 'slideInLeft', 'fadeInSidebarMask']
 const CLOSING_CLASS_ANIMATION = 'slideOutLeft'
 
 export default class extends ApplicationController {
+  static values = { id: String }
+
   connect() {
-    const { initSwipe } = this
+    const { initSwipe, idValue, identifier } = this
+
+    // If we are referencing a sidebar we do not need to create a sidebar
+    if (idValue) return
+
+    // this is so we can access the controller from anywhere in the dom
+    // https://dev.to/leastbad/the-best-one-line-stimulus-power-move-2o90
+    this.element[identifier] = this
 
     // This is the root css variable used for the breakpoint at which the
     // sidebar is open
@@ -32,15 +41,25 @@ export default class extends ApplicationController {
   disconnect() {
     const { handleClickAway } = this
 
-    this.swipe.destroy()
+    this.destroySwipe()
 
     document.removeEventListener('click', handleClickAway, false)
   }
 
+  destroySwipe() {
+    if (!this.swipe) return
+
+    this.swipe.destroy()
+  }
+
+  openSidebar() {
+    const controller = document.querySelector(this.idValue)
+
+    controller['sidebar-component--base'].handleOpen()
+  }
+
   initSwipe = () => {
-    if (this.swipe) {
-      this.swipe.destroy()
-    }
+    this.destroySwipe()
 
     this.isOpen = !!this.element.classList.contains('open')
 
