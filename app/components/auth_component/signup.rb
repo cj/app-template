@@ -16,7 +16,7 @@ module AuthComponent
       if valid? && user.save
         sign_in(user)
 
-        controller&.redirect_to(secure_path)
+        controller&.redirect_to(authenticated_path)
       end
     end
 

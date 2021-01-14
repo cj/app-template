@@ -6,5 +6,9 @@ module AuthComponent
     # def self.field_error_handler(name:, context:, **)
     #   context.helpers.rodauth.field_error(name)
     # end
+
+    def authenticated_path
+      dashboard_path
+    end
   end
 end

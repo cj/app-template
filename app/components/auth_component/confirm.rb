@@ -42,7 +42,7 @@ module AuthComponent
     # The path used after confirmation.
     def after_confirmation_path_for(resource_name)
       if signed_in?(resource_name)
-        secure_path
+        authenticated_path
       else
         login_path
       end
