@@ -1,0 +1,32 @@
+diff --git a/node_modules/@hotwired/turbo/dist/turbo.es2017-esm.js b/node_modules/@hotwired/turbo/dist/turbo.es2017-esm.js
+index 92d16c9..df843a4 100644
+--- a/node_modules/@hotwired/turbo/dist/turbo.es2017-esm.js
++++ b/node_modules/@hotwired/turbo/dist/turbo.es2017-esm.js
+@@ -732,8 +732,14 @@ class FrameController {
+     formSubmissionStarted(formSubmission) {
+     }
+     formSubmissionSucceededWithResponse(formSubmission, response) {
+-        const frame = this.findFrameElement(formSubmission.formElement);
+-        frame.delegate.loadResponse(response);
++      // This has been added as https://viewcomponent.org/ and want to be able to do a full page redirect without
++      // using _top as components will always just update themselves.
++      if (response.redirected) {
++        return navigator.formSubmissionSucceededWithResponse(formSubmission, response, true)
++      }
++
++      const frame = this.findFrameElement(formSubmission.formElement);
++      frame.delegate.loadResponse(response);
+     }
+     formSubmissionFailedWithResponse(formSubmission, fetchResponse) {
+         this.element.delegate.loadResponse(fetchResponse);
+@@ -1867,8 +1873,8 @@ class Navigator {
+     }
+     formSubmissionStarted(formSubmission) {
+     }
+-    async formSubmissionSucceededWithResponse(formSubmission, fetchResponse) {
+-        if (formSubmission == this.formSubmission) {
++    async formSubmissionSucceededWithResponse(formSubmission, fetchResponse, force) {
++        if (formSubmission == this.formSubmission || force) {
+             const responseHTML = await fetchResponse.responseHTML;
+             if (responseHTML) {
+                 if (formSubmission.method != FetchMethod.get) {
