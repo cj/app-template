@@ -1,23 +1,5 @@
 <%= turbo_stream.append "flash_messages" do %>
   <% flash_messages.each do |message_type, header: nil, message: nil| %>
-    <div data-controller="flash-component--base" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-      <div class="toast-header">
-        <%# <img src="..." class="rounded me-2" alt="..."> %>
-
-        <%= render(IconComponent::Base.new({ svg: 'square-solid', class: "me-2 text-#{alert_class(message_type)}"})) %>
-
-        <strong class="me-auto">
-          <%= header %>
-        </strong>
-
-        <small class="text-muted">just now</small>
-
-        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-      </div>
-
-      <div class="toast-body">
-        <%= message %>
-      </div>
-    </div>
+    <%= render FlashComponent::Template.new(type: message_type, header: header, message: message) %>
   <% end %>
 <% end %>

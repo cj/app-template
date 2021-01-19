@@ -10,7 +10,8 @@ module FlashComponent
             [
               "info",
               {
-                header: t(".timedout.header"), message: t(".timedout.message")
+                header: t(".timedout.header"),
+                message: t(".timedout.message"),
               },
             ]
           elsif message.is_a?(String)

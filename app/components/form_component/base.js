@@ -1,9 +1,9 @@
 import { capitalize, debounce } from 'lodash'
 
+import { Turbo } from '@hotwired/turbo-rails'
+import ApplicationController from '~/controllers/application_controller'
 /* eslint-disable class-methods-use-this, no-param-reassign */
-import { Controller } from 'stimulus'
-
-// import { Turbo } from '@hotwired/turbo-rails'
+import { events } from '~/events'
 
 // import StimulusReflex from 'stimulus_reflex'
 
@@ -48,7 +48,7 @@ const waitFor = async (condFunc) =>
     }
   })
 
-export default class extends Controller {
+export default class extends ApplicationController {
   connect() {
     const { form, onKeyPress, onSubmit, onFocus, resetForm, handleTurboEnd } = this
 
@@ -90,6 +90,8 @@ export default class extends Controller {
   }, 250)
 
   onSubmit = async (event) => {
+    Turbo.navigator.delegate.adapter.showProgressBar()
+
     this.disabledSubmit()
 
     if (!this.validateForm()) {
@@ -103,6 +105,8 @@ export default class extends Controller {
   }
 
   enableSubmit() {
+    Turbo.navigator.delegate.adapter.hideProgressBar()
+
     this.form.querySelectorAll('button[type="submit"]').forEach((element) => {
       element.disabled = false
 
@@ -121,8 +125,16 @@ export default class extends Controller {
     })
   }
 
-  handleTurboEnd = (event) => {
-    const { success } = event.detail
+  handleTurboEnd = async (event) => {
+    const { success, fetchResponse } = event.detail
+
+    if (fetchResponse.statusCode === 500) {
+      events.emit('flash', {
+        type: 'error',
+        header: await this.t('form_component.base.internal_error.header'),
+        message: await this.t('form_component.base.internal_error.message'),
+      })
+    }
 
     if (!success) {
       this.enableSubmit()
@@ -287,19 +299,13 @@ export default class extends Controller {
       field.setAttribute(INPUT_ERROR_FIELD_NAME, errorField)
     }
 
-    const i18nMessage = (await this.I18n()).t(`errors.messages.${messageKey}`, {
+    const i18nMessage = await this.t(`errors.messages.${messageKey}`, {
       defaultValue: validationMessage,
     })
 
     const errorMessage = `${errorField} ${i18nMessage}`
 
     return errorMessage
-  }
-
-  async I18n() {
-    const { I18n } = await import('~/i18n')
-
-    return I18n
   }
 
   get formFields() {

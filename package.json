@@ -25,7 +25,7 @@
     "rails:anycable:go": "onchange --initial --kill 'config/**' 'lib/**' 'Gemfile.lock' -- anycable-go --host=localhost --port=3334",
     "rails:anycable:rails": "onchange --initial --kill 'config/**' 'lib/**' 'Gemfile.lock' -- bundle exec anycable --debug",
     "rails:livereload-components": "onchange 'app/views/**/*' 'app/components/**/*' -- touch app/controllers/application_controller.rb",
-    "rails:s": "onchange --initial --kill '**/*.yml' 'config/**' 'lib/**' 'Gemfile.lock' -- bin/rails s",
+    "rails:s": "onchange --initial --kill '**/*.yml' 'config/**' '**/*.svg' 'lib/**' 'Gemfile.lock' -- bin/rails s",
     "rails:webpack": "onchange --initial --kill 'yarn.lock' 'babel.config.js' -- bin/webpack-dev-server"
   },
   "dependencies": {
@@ -45,6 +45,7 @@
     "jstz": "^2.1.1",
     "lodash": "^4.17.20",
     "mdb-ui-kit": "^3.0.0",
+    "mitt": "^2.1.0",
     "popper.js": "^1.16.1",
     "postcss": "^8",
     "rails-erb-loader": "^5.5.2",

@@ -21,6 +21,7 @@ module.exports = {
           'if',
           'each',
           'include',
+          'extend',
           'mixin',
           'return',
           'tailwind',

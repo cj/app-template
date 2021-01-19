@@ -1,0 +1,7 @@
+---
+en:
+  form_component:
+    base:
+      internal_error:
+        header: 'Internal server error'
+        message: 'Sorry something has gone wrong, please try again.'

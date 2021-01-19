@@ -17,6 +17,7 @@ Metrics/BlockLength:
   Max: 25
   Exclude:
     - 'test/**/*'
+    - 'db/migrate/*'
     - 'config/**/*'
     - 'app/lib/**/*'
     - 'Guardfile'

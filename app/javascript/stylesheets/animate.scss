@@ -8,3 +8,31 @@
 
 @import '~animate.css/source/fading_entrances/fadeIn';
 @import '~animate.css/source/fading_exits/fadeOut';
+
+@keyframes shrinkOutLeft {
+  from {
+    width: inherit;
+  }
+
+  to {
+    width: 0;
+  }
+}
+
+.shrinkOutLeft {
+  animation-name: shrinkOutLeft;
+}
+
+@keyframes shrinkInRight {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: initial;
+  }
+}
+
+.shrinkInRight {
+  animation-name: shrinkInRight;
+}

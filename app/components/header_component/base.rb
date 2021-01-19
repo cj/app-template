@@ -2,37 +2,28 @@
 
 module HeaderComponent
   class Base < AppComponent::Base
-    attr_reader :color, :show_info_bar
+    attr_reader :color, :show_info_bar, :sidebar_options
 
     CLASSES = {
-      base: "navbar navbar-expand-lg shadow-sm navbar-light",
+      base: %w(navbar navbar-expand-lg shadow-sm navbar-light border-bottom),
     }.freeze
 
     DARK_COLORS = %w(primary).freeze
 
-    def initialize(color: "light", show_info_bar: false, **options)
+    def initialize(color: "light", show_info_bar: false, sidebar: {}, **options)
+      super(options)
+
+      @sidebar_options = sidebar
       @color = color
       @show_info_bar = show_info_bar
 
-      super(options)
+      set_color_classes
     end
 
-    def tag_options
-      options.merge(
-        class: Base.merge_classes(
-          CLASSES[:base],
-          color_classes,
-          options[:class],
-        ),
-      )
-    end
-
-    def color_classes
-      classes = %W[bg-#{color}]
+    def set_color_classes
+      classes.append("bg-#{color}") unless !!classes.grep(/bg-\w+/i)
 
       classes.append("navbar-dark") if DARK_COLORS.include?(color)
-
-      classes
     end
   end
 end

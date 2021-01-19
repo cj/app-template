@@ -1,5 +1,5 @@
 <%= turbo_frame_tag turbo_id do %>
-  <%= render FlashComponent::Base.new %>
+  <%= flash_messages %>
 
   <%= form_with(base_options) do %>
     <% if parent_turbo_id %>

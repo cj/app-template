@@ -1,0 +1,15 @@
+<div aria-live="polite" aria-atomic="true" class="position-relative">
+  <div
+    id="<%= id %>"
+    class="toast-container position-absolute top-0 end-0 p-3"
+    data-controller="flash-component--base"
+    data-flash-component--base-container-value="#<%= id %>"
+    data-turbo-permanent>
+  </div>
+</div>
+
+<template id="<%= id %>_template">
+  <%= render FlashComponent::Template.new %>
+</template>
+
+<%= render FlashComponent::Base.new %>

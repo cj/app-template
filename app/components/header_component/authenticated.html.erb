@@ -1,0 +1,9 @@
+<%= tag.nav tag_options do %>
+  <div class="container-fluid justify-content-start">
+    <a class="navbar-brand me-0" href="/">
+      <%= render LogoComponent::Base.new %>
+    </a>
+
+    <%= render SidebarComponent::Toggle.new(selector: "#navbarHeaderContent", class: "ms-2") %>
+  </div>
+<% end %>

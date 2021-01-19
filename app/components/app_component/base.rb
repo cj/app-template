@@ -11,18 +11,55 @@ module AppComponent
 
     CLASSES = {}
 
-    VIEW_METHODS = %i[refresh! controller].freeze
+    VIEW_ONLY_METHODS = %i[refresh! controller].freeze
 
     def initialize(params: nil, **options)
       @params = params if params
 
-      @options = { turbo_id: turbo_id }.merge(options)
+      data = options[:data] || {}
+
+      @options = {
+        turbo_id: turbo_id,
+
+        data: {
+          controller: %W(#{component_controller_name} #{data[:controller]}).join(" ").strip,
+        },
+      }.deep_merge(options)
     end
 
     def tag_options
-      @tag_options ||= {
-        class: Base.merge_classes(self.class::CLASSES[:base], options[:class]),
-      }
+      @tag_options ||= options.deep_merge({
+        class: Base.merge_classes(
+          component_class_name,
+          classes,
+          options[:class],
+        ),
+      })
+    end
+
+    def component_controller_name
+      @component_controller_name ||= self.class.name.underscore.gsub("_", "-").gsub("/", "--")
+    end
+
+    def component_class_name
+      @component_class ||=
+        begin
+          name = self.class.name.underscore.gsub("_", "-").gsub("/", "__")
+
+          if name.include?("__base")
+            name.gsub(/__.*/, "")
+          else
+            name
+          end
+        end
+    end
+
+    def classes
+      @classes ||= Array(self.class::CLASSES[:base])
+    end
+
+    def add_classes(*classes)
+      (@classes ||= classes).append(*classes)
     end
 
     # :reek:UtilityFunction
@@ -64,7 +101,7 @@ module AppComponent
 
     def method_missing(method, *_args, &_block)
       # We want to ignore the methods if called outside of a view as they are just view component reflex related.
-      super unless VIEW_METHODS.include?(method)
+      super unless VIEW_ONLY_METHODS.include?(method)
     end
 
     def respond_to_missing?(*)

@@ -1,6 +1,10 @@
 @import '~bootstrap/scss/nav';
 @import '~bootstrap/scss/navbar';
 
+nav[class^='header-component'] {
+  height: 75px;
+}
+
 .navbar-sidebar {
   width: 100%;
   display: flex;

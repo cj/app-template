@@ -23,4 +23,4 @@
 #
 translations:
   - file: 'i18n.js'
-    only: 'en.errors.messages'
+    only: ['*.errors.messages', '*.form_component.*']

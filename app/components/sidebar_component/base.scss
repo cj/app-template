@@ -1,17 +1,39 @@
-.sidebar {
+@import '~stylesheets/animate';
+
+.sidebar-component {
   width: 100%;
   display: flex;
 
+  ul {
+    padding: 0;
+  }
+
   --animate-duration: 500ms;
 
+  &__toggle {
+    &--open {
+      display: none;
+    }
+  }
+
   @include media-breakpoint-up(lg) {
-    &.shadow {
+    &.sidebar-component--float.shadow {
       box-shadow: none !important;
     }
   }
 
   @include media-breakpoint-down(lg) {
-    &-float {
+    &__toggle {
+      &--open {
+        display: block;
+      }
+
+      &--close {
+        display: none;
+      }
+    }
+
+    &--float {
       position: fixed;
       left: 0;
       top: 0;
@@ -20,6 +42,7 @@
       height: 100vh;
       z-index: 2001;
       justify-content: start;
+      border-right: 1px solid #dee2e6;
 
       ul {
         margin-left: 0 !important;
@@ -37,10 +60,80 @@
       }
     }
   }
+
+  &--slide {
+    width: 300px;
+
+    background-color: $white;
+
+    &.closed {
+      width: 0;
+    }
+
+    @include media-breakpoint-down(lg) {
+      &:not(.open) {
+        width: 0;
+      }
+    }
+
+    & ~ .sidebar-component__mask {
+      display: none;
+    }
+  }
 }
 
+body.sidebar-closed {
+  .sidebar-component {
+    &__toggle {
+      &--open {
+        display: flex;
+      }
+
+      &--close {
+        display: none;
+      }
+    }
+  }
+}
+
+body.sidebar-open {
+  .sidebar-component {
+    &__toggle {
+      &--open {
+        display: none;
+      }
+
+      &--close {
+        display: flex;
+      }
+    }
+  }
+}
+
+// nav:has(.container) + #content {
+//   // margin-left: clamp(100px, 60vw, 300px) !important;
+//   padding-left: clamp(100px, 60vw, 300px) !important;
+//
+//   #content {
+//     width: calc(100vw - clamp(100px, 60vw, 300px)) !important;
+//   }
+//
+//   nav {
+//     width: calc(100vw - clamp(100px, 60vw, 300px)) !important;
+//   }
+// }
+// body.contains-sidebar-component--slide {
+//   // > nav[class^='header-component'] {
+//   //   border-bottom: 1px solid #dee2e6 !important;
+//   // }
+//
+//   #content {
+//     padding-left: clamp(100px, 60vw, 300px);
+//   }
+// }
+
 @include media-breakpoint-down(lg) {
-  .sidebar-mask {
+  .sidebar-component--float ~ .sidebar-component__mask {
     background-color: $gray-500;
     position: fixed;
     width: 100vw;
@@ -49,14 +142,14 @@
     --animate-duration: 500ms;
   }
 
-  .sidebar.open ~ .sidebar-mask {
+  .sidebar-component--float.open ~ .sidebar-component__mask {
     opacity: 0.4;
     top: 0;
     left: 0;
     z-index: 2000;
   }
 
-  .sidebar.closed ~ .sidebar-mask {
+  .sidebar-component--float.closed ~ .sidebar-component__mask {
     opacity: 0;
     top: 0;
     left: 0;
@@ -91,4 +184,40 @@
 
 .fadeInSidebarMask {
   animation-name: fadeInSidebarMask;
+}
+
+@keyframes slideOutLeftSidebar {
+  from {
+    width: 300px;
+  }
+
+  to {
+    width: 0;
+  }
+}
+
+.slideOutLeftSidebar {
+  animation-name: slideOutLeftSidebar;
+}
+
+@keyframes slideInLeftSidebar {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 300px;
+  }
+}
+
+.slideInLeftSidebar {
+  animation-name: slideInLeftSidebar;
+}
+
+.floatInLeftSidebar {
+  @extend .slideInLeft;
+}
+
+.floatOutLeftSidebar {
+  @extend .slideOutLeft;
 }

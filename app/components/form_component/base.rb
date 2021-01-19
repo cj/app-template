@@ -81,14 +81,18 @@ module FormComponent
 
     %i[button submit].each do |method_name|
       define_method method_name do |type: method_name, **options, &block|
-        unless ALLOWED_BUTTON_TYPES.include?(type)
-          raise Exception.new("#{type} is not in the ALLOWED_BUTTON_TYPES.")
-        end
-
         component = "ButtonComponent::#{type.to_s.classify}".constantize
 
         render(component.new(options.merge({ type: type }), &block))
       end
+    end
+
+    def flash_messages
+      # We do not want to render flash messages on initial load to avoid uplicate flash messages, we only want to
+      # show the flash messages from the form submitted.
+      return unless request.headers["Accept"].include?("turbo-stream")
+
+      render(FlashComponent::Base.new)
     end
 
     def before_render
