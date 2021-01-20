@@ -49,6 +49,7 @@ group :development, :test do
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "rubocop-shopify", require: false
+  gem "super_awesome_print_rubocop"
   # waiting for https://github.com/castwide/solargraph-reek/pull/1 to get merged in
   gem "solargraph-reek", github: "parruda/solargraph-reek", branch: "patch-1"
   # waiting for https://github.com/Shopify/erb-lint/issues/197 to get merged in
@@ -66,7 +67,7 @@ group :development, :test do
 
   gem "dotenv-rails", "~> 2.7", require: "dotenv/rails-now"
 
-  gem "awesome_print", "~> 1.8"
+  gem "awesome_print", "~> 2.0.0.pre2"
   gem "super_awesome_print"
 end
 
@@ -111,14 +112,13 @@ group :test do
   gem "webmock", github: "bblimke/webmock"
   gem "vcr"
 
-  gem "minitest-spec-rails", "~> 6.0"
+  # gem "minitest-spec-rails", "~> 6.0.3"
   gem "minitest-reporters", "~> 1.4"
   gem "minitest-snapshots", "~> 0.3.0"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
-
 # Generate short unique id's
 gem "nanoid"
 # Handle authentication
@@ -162,3 +162,5 @@ gem "logstop", "~> 0.2.6"
 gem "inline_svg", "~> 1.7"
 
 gem "rolify", "~> 5.3"
+
+gem "deep_merge", "~> 1.2", require: "deep_merge/rails_compat"

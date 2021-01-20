@@ -7,7 +7,7 @@ module DropdownComponent
     renders_one :list, List
 
     renders_one :button, ->(**options, &block) do
-      ButtonComponent::Base.new(options.deep_merge({
+      ButtonComponent::Base.new({
         class: Base.merge_classes(%w(dropdown-toggle), options[:class]),
         href: "#",
         role: "button",
@@ -15,7 +15,7 @@ module DropdownComponent
         data: {
           'bs-toggle': "dropdown",
         },
-      }), &block)
+      }.deeper_merge(options), &block)
     end
 
     CLASSES = {

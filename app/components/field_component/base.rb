@@ -97,7 +97,7 @@ module FieldComponent
 
       check_for_errors
 
-      @options = @options.merge(
+      @options = @options.deeper_merge(
         class: Base.merge_classes(
           base_classes,
           error_classes,

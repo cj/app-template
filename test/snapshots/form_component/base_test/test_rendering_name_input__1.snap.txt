@@ -1,9 +1,5 @@
 <turbo-frame id="FormComponentBase1">
-	<turbo-stream action="append" target="flash_messages">
-  <template>
-  </template>
-</turbo-stream>
-
+  
 
   <form class="d-flex flex-column" data-controller="form-component--base" data-turbo-frame="FormComponentBase1" action="/" accept-charset="UTF-8" method="post">
 
@@ -18,5 +14,5 @@
 </div>
 
 
-    <div class="honeypotx_1609906811"><style media="screen" nonce="Ix2YFC+1Apvx4dEwNuRBCA==">.honeypotx_1609906811 {position:absolute!important;height:1px;width:1px;overflow:hidden;}</style><label for="honeypotx">If you are a human, ignore this field</label><input type="text" name="honeypotx" id="honeypotx" autocomplete="off" tabindex="-1" nonce="true" /></div>
+    
 </form></turbo-frame>

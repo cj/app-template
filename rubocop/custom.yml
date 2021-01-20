@@ -1,4 +1,6 @@
 ---
+require: 'super_awesome_print_rubocop'
+
 Layout/LineLength:
   Exclude:
     - 'db/**/*'

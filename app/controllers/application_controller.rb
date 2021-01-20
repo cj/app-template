@@ -13,6 +13,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def check_for_spam
+    return if Rails.env.test?
+
     # This trick is for Turbo forms so that it persists the flash error twice.
     if session[:spam_redirect]
       flash[:error] = {

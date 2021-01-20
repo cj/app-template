@@ -10,7 +10,7 @@ module FieldComponent
         resource.class.name.downcase, "time_zone",
         nil,
         { default: field_value || value || browser_time_zone.name },
-        options.deep_merge({
+        options.deeper_merge({
           # data: {
           #   controller: "field-component--autocomplete",
           # },

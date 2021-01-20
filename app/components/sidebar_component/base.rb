@@ -20,7 +20,7 @@ module SidebarComponent
       @item_list = item_list
       @animation = animation
 
-      super(options.deep_merge(data: {
+      super(options.deeper_merge(data: {
         animation: {
           type: animation_type,
           direction: animation_direction,
@@ -49,7 +49,7 @@ module SidebarComponent
     end
 
     def mask_tag_options
-      mask.merge(
+      mask.deeper_merge(
         class: Base.merge_classes(CLASSES[:mask], mask[:class]),
       )
     end

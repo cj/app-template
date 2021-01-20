@@ -11,7 +11,7 @@ module SidebarComponent
     end
 
     def tag_options_open
-      @tag_options_open ||= tag_options.deep_merge({
+      @tag_options_open ||= {
         color: "link",
         class: %w(fa-lg sidebar-component__toggle--close),
         aria: {
@@ -24,11 +24,11 @@ module SidebarComponent
           "sidebar-component--base-id-value": selector,
           action: "click->sidebar-component--base#toggle",
         },
-      })
+      }.deeper_merge(tag_options)
     end
 
     def tag_options_close
-      @tag_options_close ||= tag_options.deep_merge({
+      @tag_options_close ||= {
         color: "link",
         class: %w(fa-lg sidebar-component__toggle--open),
         aria: {
@@ -41,7 +41,7 @@ module SidebarComponent
           "sidebar-component--base-id-value": selector,
           action: "click->sidebar-component--base#toggle",
         },
-      })
+      }.deeper_merge(tag_options)
     end
   end
 end

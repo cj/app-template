@@ -24,17 +24,17 @@ module AppComponent
         data: {
           controller: %W(#{component_controller_name} #{data[:controller]}).join(" ").strip,
         },
-      }.deep_merge(options)
+      }.deeper_merge(options)
     end
 
     def tag_options
-      @tag_options ||= options.deep_merge({
+      @tag_options ||= {
         class: Base.merge_classes(
           component_class_name,
           classes,
           options[:class],
         ),
-      })
+      }.deeper_merge(options)
     end
 
     def component_controller_name

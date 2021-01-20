@@ -3,19 +3,23 @@
 module FieldComponent
   class Checkbox < Base
     def options
-      super.deep_merge({
-        class: "form-check-input",
+      super.deeper_merge({
+        class: %w(form-check-input),
       })
     end
 
     def label_options
-      super.deep_merge({
-        class: "form-check-label",
+      super.deeper_merge({
+        class: %w(form-check-label),
       })
     end
 
     def checked
       value.present?
+    end
+
+    def before_render
+      sap(options)
     end
   end
 end

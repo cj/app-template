@@ -18,14 +18,14 @@ module LogoComponent
     end
 
     def logo_tag_options
-      logo.deep_merge({
+      logo.deeper_merge({
         width: 60,
         class: Base.merge_classes(CLASSES[:logo], logo[:class]),
       })
     end
 
     def logo_text_tag_options
-      logo_text.deep_merge({
+      logo_text.deeper_merge({
         class: Base.merge_classes(CLASSES[:logo_text], logo_text[:class]),
       })
     end

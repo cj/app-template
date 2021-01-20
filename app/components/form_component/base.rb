@@ -90,9 +90,15 @@ module FormComponent
     def flash_messages
       # We do not want to render flash messages on initial load to avoid uplicate flash messages, we only want to
       # show the flash messages from the form submitted.
-      return unless request.headers["Accept"].include?("turbo-stream")
+      return unless request.headers["Accept"]&.include?("turbo-stream")
 
       render(FlashComponent::Base.new)
+    end
+
+    def invisible_captcha
+      return if Rails.env.test?
+
+      helpers.invisible_captcha(nonce: true)
     end
 
     def before_render

@@ -17,13 +17,13 @@ module SidebarComponent
 
     def item(**options, &block)
       items.push(
-        render(ListItem.new(item_tag_options.deep_merge(options)), &block),
+        render(ListItem.new(item_tag_options.deeper_merge(options)), &block),
       )
     end
 
     def dropdown(**options, &block)
       items.push(
-        render(DropdownComponent::Base.new(item_tag_options.deep_merge(options)), &block),
+        render(DropdownComponent::Base.new(item_tag_options.deeper_merge(options)), &block),
       )
     end
 
