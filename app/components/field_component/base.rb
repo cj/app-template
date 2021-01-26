@@ -97,17 +97,16 @@ module FieldComponent
 
       check_for_errors
 
-      @options = @options.deeper_merge(
+      @options = {
         class: Base.merge_classes(
           base_classes,
           error_classes,
-          @options[:class],
         ),
         'aria-invalid': has_error,
-        data: [*@options[:data], *{
+        data: [*{
           'error-field-name': label_options[:text],
         }].to_h,
-      )
+      }.deeper_merge(@options)
     end
   end
 end
